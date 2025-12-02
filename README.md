@@ -3,7 +3,7 @@
 
 # TryHackMe Writeups
 
-Welcome to my [TryHackMe](https://tryhackme.com/) challenge writeups, created and maintained by [Christian](https://tryhackme.com/p/chrztndclz).  
+Welcome to my [TryHackMe](https://tryhackme.com/) challenge writeups, created and maintained by [chrztndclz](https://tryhackme.com/p/chrztndclz).  
 These writeups are primarily a personal documentation of my learning process, but I hope they also help others understand the concepts and approaches behind each challenge.
 
 This repository will gradually include detailed, step-by-step analyses for multiple rooms and categories — all flags are **redacted** to preserve the integrity of the platform.

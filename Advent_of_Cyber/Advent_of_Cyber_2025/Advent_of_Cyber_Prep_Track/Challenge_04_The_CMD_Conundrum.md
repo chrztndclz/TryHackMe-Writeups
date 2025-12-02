@@ -40,8 +40,6 @@ Step 2: Reveal hidden directory
 
 `dir /a command`
 
-/a used for ?
-
 <img width="725" height="603" alt="image" src="https://github.com/user-attachments/assets/76a41f5e-1e1e-48d1-9850-2f92334735d5" />
 
 Step 3: Change directory

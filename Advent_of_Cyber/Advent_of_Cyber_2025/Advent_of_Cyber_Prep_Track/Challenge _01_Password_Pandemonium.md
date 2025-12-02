@@ -50,8 +50,7 @@ Step 1: Create a strong password
     
 3. Ensure it isn’t in the breach database.
 
-
-TryHackMe@2o25
+`TryHackMe@2o25`
 
 <img width="917" height="498" alt="image" src="https://github.com/user-attachments/assets/8b90f18b-eaca-41db-b103-35c12780dfb0" />
 

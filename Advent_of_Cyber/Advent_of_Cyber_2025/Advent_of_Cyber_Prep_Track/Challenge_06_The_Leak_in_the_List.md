@@ -1,6 +1,6 @@
 ## The Leak in the List
 
-[TryHackMe Room](https://tryhackme.com/room/adventofcyberpreptrack)
+[TryHackMe](https://tryhackme.com/room/adventofcyberpreptrack)
 
 ---
 

@@ -23,6 +23,8 @@ Use cat .secret_message to reveal the flag.
 
 ## Analysis
 
+This challenge reinforces basic Linux navigation and file‑discovery skills. By inspecting McSkidy’s home directory and listing all files (including hidden ones), you uncover a concealed message. These techniques mirror real-world investigations where attackers hide artifacts inside user directories.
+
 ---
 
 ## Methodology
@@ -35,17 +37,35 @@ Step 1: Navigate directory
 
 Step 2: List all files
 
-ls -la
+`ls -la`
+
+<img width="732" height="432" alt="image" src="https://github.com/user-attachments/assets/5283613d-4810-45be-825c-1e42109f4263" />
+
+Step 3: Read the file
+
+`cat .secret_message`
+
+<img width="754" height="403" alt="image" src="https://github.com/user-attachments/assets/33212c4c-a288-4563-96ed-34b897828456" />
 
 
 ---
 
 ## Flag
 
+THM{Tr----------ny}
+
 ---
 
 ## Reflection 
 
+This exercise emphasizes how Linux hides important files behind dot prefixes and how defenders use simple commands to reveal them. Understanding directory structures and hidden file behavior is essential for effective system auditing and threat investigation.
+
 ---
 
 ## Tools
+
+cd — Moves between directories.
+
+ls -la — Lists all files, including hidden ones, with permissions and metadata.
+
+cat — Displays the contents of a file.

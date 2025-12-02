@@ -51,4 +51,4 @@ Your support motivates continued updates and future additions!
 This repository and all contained writeups are released under the **MIT License**.  
 Flags are partially or fully redacted to preserve the educational integrity of the TryHackMe platform.
 
-> © 2025 [Christian](https://github.com/chrztndclz) — Educational use only.
+> © 2025 [chrztndclz](https://github.com/chrztndclz) — Educational use only.

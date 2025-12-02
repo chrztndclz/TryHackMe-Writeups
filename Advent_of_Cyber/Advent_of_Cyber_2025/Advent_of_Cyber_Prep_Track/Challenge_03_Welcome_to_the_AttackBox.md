@@ -1,6 +1,6 @@
 ## Welcome to the AttackBox!
 
-[TryHackMe Room](https://tryhackme.com/room/adventofcyberpreptrack)
+[TryHackMe](https://tryhackme.com/room/adventofcyberpreptrack)
 
 ---
 

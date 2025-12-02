@@ -1,4 +1,4 @@
-<img width="1120" height="504" alt="image" src="https://github.com/user-attachments/assets/4a00cbea-bc15-4b0d-94b6-0470ecaf023b" />
+<img width="560" height="313" alt="image" src="https://github.com/user-attachments/assets/4a00cbea-bc15-4b0d-94b6-0470ecaf023b" />
 
 
 # TryHackMe Writeups

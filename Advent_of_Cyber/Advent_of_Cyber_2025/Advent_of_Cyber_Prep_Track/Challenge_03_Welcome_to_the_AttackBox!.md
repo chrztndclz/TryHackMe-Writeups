@@ -60,7 +60,6 @@ Step 5: Retrieve the flag
 
 ## Flag
 
-THM{Ready2Hack}
 THM{Rea----------ack}
 
 ---

@@ -1,11 +1,6 @@
 <img width="560" height="313" alt="image" src="https://github.com/user-attachments/assets/4a00cbea-bc15-4b0d-94b6-0470ecaf023b" />
 
 
-
-<iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=6091408" style='border:none;'></iframe>
-
-
-
 # TryHackMe Writeups
 
 Welcome to my [TryHackMe](https://tryhackme.com/) challenge writeups, created and maintained by [chrztndclz](https://tryhackme.com/p/chrztndclz).  

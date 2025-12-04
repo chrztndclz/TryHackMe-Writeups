@@ -112,7 +112,7 @@ grep "secret" message.txt && echo "Secret found!"
 
 ---
 
-Sir Carrotbane Attacks
+## Sir Carrotbane Attacks
 
 Now it is clear that the server has been breached, and the Christmas wishlist has been replaced with an EASTMAS one. Although you found no clue of what happened to McSkidy, at least you know the attackers were there. You can see how Sir Carrotbane replaced the wishlist by visiting http://10.49.177.240:8080 from the VM's web browser. You can open it by clicking the Firefox icon on the Desktop.
 
@@ -151,7 +151,7 @@ Did you know that every command you run is saved in a hidden history file, also 
 
 ---
 
-#### Objectives
+## Objectives
 
 Which CLI command would you use to list a directory?
 

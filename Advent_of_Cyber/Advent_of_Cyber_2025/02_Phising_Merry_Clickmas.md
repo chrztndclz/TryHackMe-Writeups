@@ -1,11 +1,13 @@
-## The Story
+## Introduction
 
+---
+#### The Story
 
 In light of several recent cyber security threats against The Best Festival Company (TBFC), the local red team has scheduled several penetration tests. The red teamers proceeded to carry out a regular penetration test against their TBFC. Part of this exercise is to ensure that the employees are diligent when clicking links and that the company is well protected against the latest phishing attacks. This type of authorised phishing is a proven way to learn whether the cyber security awareness training has fruited.
 
 In this task, you will be part of the TBFC local red team with the elves Recon McRed, Exploit McRed, and Pivot McRed. You will help them plan and execute their phishing campaign. It is time to see if more cyber security awareness training is required.
 
-## Learning Objectives
+#### Learning Objectives
 
 - Understand what social engineering is
 - Learn the types of phishing

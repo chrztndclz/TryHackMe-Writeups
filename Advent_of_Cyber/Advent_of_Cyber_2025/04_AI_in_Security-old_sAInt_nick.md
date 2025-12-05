@@ -19,77 +19,48 @@ TBFC, adventurous as ever, is trialling their brand new cyber security AI assi
 
 ## Walkthrough
 
-01
-02
-03
-and so on 
+**01 Introduction: The Boom of AI Assistants**
 
+Artificial Intelligence has evolved from a simple convenience tool into a core component of modern workflows. In cybersecurity, its impact is undeniable. AI now automates repetitive tasks, processes large datasets, highlights suspicious activity, and supports decision-making faster than humans alone.
 
+This room introduces how AI is being applied across cybersecurity fields and what important considerations to keep in mind when deploying AI systems.
 
-The Boom of AI Assistants
-Ah, yes, artificial intelligence, that buzzword that seems here to stay. Who would have thought? Today’s room will highlight some ways AI is utilised in cyber security, along with important considerations to bear in mind when deploying AI for such tasks.
+**02 AI in Cyber Security**
 
-Particularly at the time of writing, AI is increasingly seen as a tool to boost speed by handling often tedious, time-consuming tasks, allowing humans to perform the real magic. Organisations want to see experience, not avoidance, in how these tools are operated.
+AI provides several advantages that map directly to cybersecurity needs. It can rapidly analyse vast log datasets, detect anomalies in behaviour, and offer context through generative summaries. These strengths are being integrated across three major areas:
 
-GPT this, GPT that, we’ve all heard it often. And it’s likely to persist. As AI’s capabilities expand daily, we’ve observed a shift from AI being just “something to ask because you were too lazy to Google” (a mistake I’ve made myself). Now, AI is being embedded into everyday workflows, transforming how tasks are done and boosting productivity like never before. 
+**Defensive Security**
+AI agents assist blue teams by continuously processing telemetry, adding context to alerts, and accelerating detection and response. Modern security tools now embed AI for real-time alerting, automated device isolation, email blocking, and monitoring unusual login behaviour.
 
-With that said, let’s begin today’s room!
+**Offensive Security**
+AI helps pentesters by automating repetitive stages of reconnaissance and data processing. It can handle OSINT collection, parse noisy scan results, and map attack surfaces, allowing the tester to focus more on high-impact manual exploitation.
 
-a christmas bauble ornament with an AI robot sitting inside of it.
+**Software Security**
+AI is used as a development assistant and as a SAST/DAST scanner to identify vulnerabilities in codebases. While AI is promising for detecting issues, it is far less reliable at writing secure code, making human review essential.
 
-AI in Cyber Security
-The use of artificial intelligence has seen a significant boost in cyber security. Visit almost any vendor, and they'll now have some form of AI powering a solution somewhere. Why? Well, it's not just because they're capitalising on the buzzword (although that's certainly a part of it), but rather, the benefits from artificial intelligence really do apply here. Let's explore some of these in the table below:
+**03 Considerations and Practical Exercise**
 
-Features of AI	Cyber Security Relevance
-Processing large amounts of data	Analysing vast data from multiple types of sources. For example, system and network logs together.
-Behaviour analysis	Tracking normal behaviour and activities over a period of time and flagging anything that is out of the ordinary.
-Generative AI	Summarising or providing context behind a series of events.
-Defensive Security
-a piece of paper on a clipboard with a magnifying glass inspecting it.
+Although AI offers significant benefits, it comes with risks. Outputs are not always accurate, and relying blindly on AI can lead to misinterpretation, system errors, or even operational damage. Offensive testing poses particular risks, like overloading client systems or triggering race conditions. Additional considerations include data privacy, fairness, transparency, and the security of AI models themselves.
 
-AI agents are being used in blue teaming to speed up detection, investigation, and response, making them quicker and more dependable. Acting like automated assistants, these agents continuously process telemetry (logs, network flows, endpoint signals) and add context to alerts. Furthermore, we are witnessing the integration of AI into vendor appliances—such as AI-assisted firewalling and intrusion detection systems.
-
-Beyond just detecting threats, AI can also assist in automating responses. Picture your system automatically isolating an infected device, blocking a suspicious email, or flagging an unusual login attempt — all in real time.
-
-Offensive Security
-AI agents have made a notable impact on offensive security by automating and handling the often very labourious and time-consuming tasks that a pentester might traditionally undertake. 
-
-For example, AI can be a powerful tool in a penetration tester's workflow for reconnaissance and information gathering, from OSINT to analysing noisy scanner outputs and mapping attack surfaces. This allows the pentester to spend more time on the crucial tasks that require a human touch.
-
-Software
-three gears/cogs closely placed with one another.
-
-AI-driven software development, rightfully, sounds a bit frightening. Isn't that so? Well, you wouldn't be wrong to feel this way; we've all heard about the popularity of vibe coding and the vulnerabilities introduced by AI.
-
-However, AI has proven to be a valuable addition to the software development process in several ways. One example is a virtual "colleague" to bounce ideas off while writing the code itself. More importantly, it is used as a SAST/DAST scanner. These scanners audit and analyse written code and applications for potential vulnerabilities. 
-
-Yes, it's somewhat ironic. AI agents can be great at identifying vulnerabilities, but are not quite as effective at writing secure code.
-
-Considerations of AI In Cyber Security
-a red closed book with the text "rules" on the cover.
-
-Now, I’m not entirely here to sing the praises of AI and say it’s the silver bullet to all your needs. If you’ve used AI before, you’ll know the pitfalls and frustrations one can face. And nowhere is that truer than in cyber security.
-
-While the usual considerations of using AI apply, such as not owning the output from AI, there are specific factors to consider before deploying it in cyber security.
-
-One such consideration is the use of AI in activities like offensive penetration testing. While we have discussed some of AI's applications in these areas, caution remains essential. You do not want to explain to a client that their services and websites are down because an AI has caused a race condition or overwhelmed their systems.
-
-We must think carefully about the data AI learns from, how transparent and fair its decisions are, and how reliable it remains when the unexpected occurs. We cannot assume the output from AI is 100% correct. Efforts must be made to verify the information it provides. Additionally, managing challenges such as keeping data private, securing AI models, and informing users properly requires careful consideration.
-
-Practical
-Phew! Ready for an exciting exercise? You will be interacting with Van SolveIT, who will guide you through three showcases of how AI can be used in cyber security:
+To demonstrate these concepts, the room provides a hands-on activity where you interact with Van SolveIT, an AI assistant showcasing three scenarios:
 
 Red: Generate and use an exploit script.
-Blue: Analyse web logs of an attack that has occurred.
-Software: Analyse source code for vulnerabilities.
-When you're ready, you can access Van SolveIT at http://MACHINE_IP. Remember, you will need to do so either from the AttackBox or your own device connected to the VPN.
 
-If you are on a small display, we recommend expanding the AttackBox into full screen mode which can be done by pressing the "two arrows" icon (left of the "+" icon) in the split-screen view to expand it into full screen.
+Blue: Analyse web logs from an attack.
 
-Usage Tips
-Chatbot responses may appear blank for a minute or two while it generates the reply. You will start to see Van SolveIT's responses in real time.
-If the chatbot gets confused at any time, press the Restart Chat button at the top right of the page.
-As you progress throughout the showcase, stages will unlock. You can go back to any stage that you have unlocked by clicking on the stage name on the top left.
+Software: Review and identify vulnerabilities in source code.
+
+Access Van SolveIT at:
+http://MACHINE_IP
+(using the AttackBox or your VPN-connected device).
+
+Tips:
+
+Responses may appear blank for a moment while generating.
+
+Use “Restart Chat” if the AI becomes confused.
+
+Unlocked stages can be revisited using the navigation menu.
 
 
 ---

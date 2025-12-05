@@ -214,7 +214,8 @@ What is the count of Havij user_agent events found in the logs?
 `993`
 
 Anomaly Detection
-`user_agent`
+
+user_agent
 
 <img width="1842" height="877" alt="image" src="https://github.com/user-attachments/assets/e620b9d8-a713-4d3c-8a1e-14a83e566c9a" />
 
@@ -227,6 +228,7 @@ How many path traversal attempts to access sensitive files on the server were ob
 **03 Anomaly Detection**
 
 Suspicious Paths
+
 <img width="1841" height="889" alt="image" src="https://github.com/user-attachments/assets/ab67f837-5821-40f9-a5f4-429df30a8a08" />
 
 ---

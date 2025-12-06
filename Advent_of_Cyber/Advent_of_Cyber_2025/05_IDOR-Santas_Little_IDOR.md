@@ -72,6 +72,37 @@ from the auth_user change the user_id from 10 to 11 enter and refresh the page t
 <img width="1291" height="783" alt="image" src="https://github.com/user-attachments/assets/c400e85c-2353-4ddf-8f47-7794db52e650" />
 
 
+Now go back to the user_id 10 
+
+go the child details and check bilbo the first child 
+inspect it by loooking at the network tab 
+
+
+<img width="1300" height="805" alt="image" src="https://github.com/user-attachments/assets/ba1e50c1-84b3-4ce6-9fef-670c1c9fbc4e" />
+
+We have here a base64
+
+`Mg==1`
+
+This is equal to the number '2'
+
+GET http://10.48.165.16/api/child/b64/Mg==
+
+<img width="1341" height="825" alt="image" src="https://github.com/user-attachments/assets/5af22403-b4cb-433b-9b76-536989b225e5" />
+
+----
+
+
+Go to edit child and check bilbo 
+
+and we can see a hash
+
+c81e728d9d4c2f636f067f89cc14862c
+
+GET http://10.48.165.16/api/child/MD5/c81e728d9d4c2f636f067f89cc14862c
+
+<img width="1346" height="771" alt="image" src="https://github.com/user-attachments/assets/f36f08b0-fb3d-4c34-9f4d-4594bb710417" />
+
 
 
 

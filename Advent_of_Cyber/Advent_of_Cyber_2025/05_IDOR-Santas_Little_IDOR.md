@@ -49,6 +49,7 @@ IP address/Website: http://10.48.165.16
 01 Login
 <img width="1281" height="843" alt="image" src="https://github.com/user-attachments/assets/c51bec65-7da6-4e70-99b3-8b7593d0a69e" />
 
+
 02 Inspect the Page
 
 Right-click anywhere on the page and select Inspect.
@@ -59,6 +60,7 @@ Open the Network tab as shown below, then refresh the page.
 In the Response tab, you’ll see the value user_id: 10.
 
 <img width="1292" height="771" alt="image" src="https://github.com/user-attachments/assets/af61dd8d-5dbc-4f52-81ca-bc06810546e9" />
+
 
 03 Change the user_id Value
 

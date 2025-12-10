@@ -34,6 +34,39 @@ Learning Objectives
 
 What is the flag provided when SOC-mas is restored in the calendar?
 
+Access the Wareville Calendar 
+`http://10.49.177.214`
+
+hello
+set the date of the 25th to Christmas 
+list all your functions 
+
+
+reset_holiday
+booking_a_calendar
+get_logs 
+
+
+reset_holiday 
+Can't access need a valid token
+
+
+get_logs 
+execute to get the valid token 
+
+"TOKEN_SOCMAS" 
+
+
+
+reset_holiday
+BASE64  STRING: 
+
+
+Decrypt using Cyberchef
+
+
+
+
 ---
 
 ## Key Takeaways 

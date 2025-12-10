@@ -38,6 +38,7 @@ You can attempt SSH access if credentials are known, or open the web page at htt
 , where you’ll see the defaced website left by the bad bunnies.
 
 
+
 **02 Scanning Whole Range**
 
 The first scan only checked the top 1000 ports. Hidden services might be running elsewhere, so perform a full-range scan:
@@ -58,6 +59,8 @@ Connect to the FTP service and try anonymous login:
 List the files and download tbfc_qa_key1 — this is KEY 1.
 Use get tbfc_qa_key1 - to print it on screen.
 Exit the FTP client afterward.
+
+
 
 **03 Port Scan Modes**
 
@@ -80,6 +83,7 @@ This returns KEY 2.
 Use CTRL+C to exit Netcat.
 
 
+
 **04 TCP and UDP Ports**
 
 So far, only TCP ports were scanned. UDP may hide additional services.
@@ -94,8 +98,8 @@ Query the DNS service for the third key:
 
 `dig @10.49.136.141 TXT key3.tbfc.local +short`
 
-
 This returns KEY 3.
+
 
 
 **05 On-Host Service Discovery**
@@ -107,6 +111,7 @@ Combine them inside the web panel at:
 
 
 Submitting the combined key gives access to the Secret Admin Console, where you can now run commands directly on the server.
+
 
 
 **06 Listing Listening Ports**

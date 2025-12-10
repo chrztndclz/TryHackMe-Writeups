@@ -22,10 +22,15 @@ Apply your knowledge to find a way back into the server
 ## Walkthrough 
 
 01 The Simplest Port Scan
+
 02 Scanning Whole Range
+
 03 Port Scan Modes
+
 04 TCP and UDP Ports
+
 O5-Host Service Discovery
+
 06 isting Listening Ports
 
 ---
@@ -76,7 +81,13 @@ dig @10.49.162.132 TXT key3.tbfc.local +short
 
 Which port was the MySQL database running on?
 
-Login to the website: http://10.49.162.132
+Login to the website: http://10.49.136.141
+
+using the key: 
+
+`3aster_15_th3_n3w_xm45`
+
+<img width="1909" height="841" alt="image" src="https://github.com/user-attachments/assets/b793e9e5-7b03-4cf3-a202-45f6a61789cb" />
 
 
 3306

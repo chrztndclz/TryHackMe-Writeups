@@ -21,17 +21,129 @@ Apply your knowledge to find a way back into the server
 
 ## Walkthrough 
 
-01 The Simplest Port Scan
+**01 The Simplest Port Scan**
 
-02 Scanning Whole Range
+Start by identifying your target: the tbfc-devqa01 server at 10.49.136.141.
+Perform a basic Nmap scan to look for commonly used ports:
 
-03 Port Scan Modes
+`nmap 10.49.136.141`
 
-04 TCP and UDP Ports
+The scan reveals two open ports:
 
-O5-Host Service Discovery
+- 22/tcp – SSH
 
-06 isting Listening Ports
+- 80/tcp – HTTP
+
+You can attempt SSH access if credentials are known, or open the web page at http://10.49.136.141
+, where you’ll see the defaced website left by the bad bunnies.
+
+
+**02 Scanning Whole Range**
+
+The first scan only checked the top 1000 ports. Hidden services might be running elsewhere, so perform a full-range scan:
+
+`nmap -p- --script=banner 10.49.136.141`
+
+New open ports appear:
+
+- 21212/tcp – FTP (vsFTPd 3.0.5)
+
+- 25251/tcp – TBFC maintd custom app
+
+Connect to the FTP service and try anonymous login:
+
+`ftp 10.49.136.141 21212`
+
+
+List the files and download tbfc_qa_key1 — this is KEY 1.
+Use get tbfc_qa_key1 - to print it on screen.
+Exit the FTP client afterward.
+
+**03 Port Scan Modes**
+
+Next, check the custom TBFC service on port 25251 using Netcat:
+
+`nc -v 10.49.136.141 25251`
+
+
+You’ll see:
+
+TBFC maintd v0.2
+Type HELP for commands.
+
+
+Run the proper command:
+
+`GET KEY`
+
+This returns KEY 2.
+Use CTRL+C to exit Netcat.
+
+
+**04 TCP and UDP Ports**
+
+So far, only TCP ports were scanned. UDP may hide additional services.
+Run a UDP scan:
+
+`nmap -sU 10.49.136.141`
+
+
+You will see 53/udp – DNS open.
+
+Query the DNS service for the third key:
+
+`dig @10.49.136.141 TXT key3.tbfc.local +short`
+
+
+This returns KEY 3.
+
+
+**05 On-Host Service Discovery**
+
+Now you have all three keys.
+Combine them inside the web panel at:
+
+`http://10.49.136.141`
+
+
+Submitting the combined key gives access to the Secret Admin Console, where you can now run commands directly on the server.
+
+
+**06 Listing Listening Ports**
+
+Inside the admin console, enumerate all open ports:
+
+ss -tunlp
+
+```
+This shows all listening services, including:
+
+SSH (22)
+
+HTTP (80)
+
+FTP (21212)
+
+TBFC maintd (25251)
+
+DNS (53)
+
+Localhost-only services like:
+
+3306 – MySQL
+
+8000
+
+7681
+```
+
+Since you're inside the machine, you can access MySQL without a password:
+
+`mysql -D tbfcqa01 -e "show tables;"`
+`mysql -D tbfcqa01 -e "select * from flags;"`
+
+
+This reveals the final QA server flag.
 
 ---
 
@@ -89,17 +201,52 @@ using the key:
 
 <img width="1909" height="841" alt="image" src="https://github.com/user-attachments/assets/b793e9e5-7b03-4cf3-a202-45f6a61789cb" />
 
+List open ports using:
+`ss -tunlp` 
 
-3306
+<img width="1863" height="768" alt="image" src="https://github.com/user-attachments/assets/15900d8d-ab5d-4d96-8dfd-d06ffddac6a1" />
+
+
+`3306`
 
 ---
 
 Finally, what's the flag you found in the database?
 
+See data base content: 
+
+Show Table
+`mysql -D tbfcqa01 -e "show tables;"`
+
+Select the Flag
+`mysql -D tbfcqa01 -e "select * from flags;"`
+
+<img width="1861" height="774" alt="image" src="https://github.com/user-attachments/assets/7908180c-d5bf-441e-ae74-f1faa9e2afae" />
+
 ---
 
-## Key takeaways
+##Key Takeaways
 
+- Incremental scanning matters. Starting with a basic Nmap scan revealed only two ports, but expanding to full-range and UDP scans uncovered hidden services critical to regaining access.
+
+- Different protocols reveal different clues. FTP exposed the first key, a custom TCP service provided the second, and a DNS TXT record hidden over UDP yielded the third.
+
+- Service enumeration is essential. Using tools like nc, dig, and Nmap scripts provided deeper insight into how the attacker left access points on the server.
+
+- Privilege comes from chaining small discoveries. The three key parts from separate services had to be combined to unlock the compromised web panel and escalate into the admin console.
+
+- On-host enumeration finishes the job. Once inside, commands like ss -tunlp and direct MySQL queries made it possible to locate backend services, inspect the database, and retrieve the final flag.
+
+- Security lesson: Unmonitored services, weak configurations, and publicly accessible ports—even obscure ones—create multiple attack vectors. Always validate the entire attack surface.
 
 ---
+
 ## Reflection
+
+This challenge emphasized the importance of thorough network enumeration and understanding how attackers may leave behind unconventional access points. Each step reflected a realistic workflow: start with surface-level reconnaissance, expand to deeper probing, identify unusual ports, and validate both TCP and UDP pathways.
+
+Working through the exercise reinforced how critical it is not to rely solely on default Nmap scans—hidden services often sit outside common port ranges. Discovering keys from different protocols also highlighted how multi-vector analysis leads to a complete picture of a breach.
+
+Finally, accessing the admin panel and enumerating internal services showed the value of post-exploitation techniques. Being able to trace the attacker’s footprint across the system demonstrated how a SOC analyst connects clues from different layers to regain control of a compromised environment.
+
+Overall, this task strengthened practical skills in scanning, enumeration, protocol analysis, and on-host investigation—core capabilities for both security monitoring and incident response.

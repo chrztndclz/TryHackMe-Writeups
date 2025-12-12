@@ -97,7 +97,7 @@ john --wordlist=/usr/share/wordlists/rockyou.txt ziphash.txt
 
 Open the zip file using the password
 
-Password: winter4ever
+Password: `winter4ever`
 
 <img width="1360" height="801" alt="image" src="https://github.com/user-attachments/assets/247e4dc1-e7c3-4e61-ad1a-e58c4c406a0b" />
 

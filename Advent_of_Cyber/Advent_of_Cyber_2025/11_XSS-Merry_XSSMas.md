@@ -33,6 +33,15 @@ What's the reflected XSS flag?
 <script>alert('Reflected XSS')</script>
 
 
-
-
 What's the stored XSS flag?
+
+
+---
+
+## Key Takeaways
+
+---
+
+## Reflection
+
+

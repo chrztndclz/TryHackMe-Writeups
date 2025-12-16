@@ -21,4 +21,35 @@ Follow the investigation steps below; each corresponds to a Splunk query and inv
 
 ## Walkthrough
 
+01 Logging into Splunk
+02 Detect Suspicious Web Commands 
+03 Apache Error Logs 
+04 Trace Suspicious Process Creation From Apache
+05 Confirm Attacker Enumeration Activity 
+06 Identify Base64-Encoded PowerShell Payloads 
+
+---
+
+## Objective 
+
+What is the reconnaissance executable file name?
+
+
+What executable did the attacker attempt to run through the command injection?
+
+
+---
+
+## Key Takeaways 
+
+
+
+---
+
+## Reflection 
+
+
+
+---
+
 

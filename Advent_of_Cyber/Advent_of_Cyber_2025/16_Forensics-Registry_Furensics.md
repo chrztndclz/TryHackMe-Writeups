@@ -45,14 +45,14 @@ In the investigation of dispatch-srv01, Registry Explorer is used to load the co
 ## Objective
 
 What application was installed on the dispatch-srv01 before the abnormal activity started?
-
+```
 Open the in the Registry Explorer and load hive the "SOFTWARE" hive file and Navigate this folders: 
 Root
 Microsoft
 Windows
 CurrentVersion
 Uninstall
-
+```
 <img width="1356" height="848" alt="image" src="https://github.com/user-attachments/assets/545f7914-b7d2-437f-9d2c-30cd90acd78f" />
 
 In the timestamp filter October 21, 2025
@@ -63,7 +63,7 @@ In the timestamp filter October 21, 2025
 
 
 What is the full path where the user launched the application (found in question 1) from?
-
+```
 Open the in the Registry Explorer and load hive the "NTUSER.DAT" hive file and Navigate this folders: 
 Root
 Microsoft
@@ -72,20 +72,20 @@ CurrentVersion
 AppCompatFlags
 Compatibility Assistant
 Store
-
+```
 <img width="1867" height="858" alt="image" src="https://github.com/user-attachments/assets/564d77fe-cc89-4ddf-971e-1887249ecf2e" />
 
 `C:\Users\dispatch.admin\Downloads\DroneManager_Setup.exe`
 
 Which value was added by the application to maintain persistence on startup?
-
+```
 Open the in the Registry Explorer and load hive the "SOFTWARE" hive file and Navigate this folders: 
 Root
 Microsoft
 Windows
 CurrentVersion
 Run
-
+```
 <img width="1879" height="854" alt="image" src="https://github.com/user-attachments/assets/8f5cfd14-4093-4f98-ae1d-8702b028a6da" />
 
 `"C:\Program Files\DroneManager\dronehelper.exe" --background`

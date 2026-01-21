@@ -21,23 +21,25 @@ However, McSkidy managed to send vital clues to his team using harmless bunny pi
 
 **01 First Lock - Outer Gate**
 
+What is the password for the first lock?
+
 **Second Lock - Outer Wall**
+
+What is the password for the second lock?
 
 **Third Lock - Guard House**
 
+What is the password for the third lock?
+
 **Fourth Lock - Inner Castle**
+
+What is the password for the fourth lock?
 
 **Fifth Lock - Prison Tower**
 
+What is the password for the fifth lock?
 
----
-
-## Objective
-
-What application was installed on the dispatch-srv01 before the abnormal activity started?
-
-
-What is the full path where the user launched the application (found in question 1) from?
+What is the retrieved flag?
 
 
 ---

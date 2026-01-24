@@ -31,6 +31,7 @@ Base64: Q290dG9uVGFpbA==
 Inspect and go to Network Tab
 
 Magic Question: What is the password for this level?
+
 Base64: V2hhdCBpcyB0aGUgcGFzc3dvcmQgZm9yIHRoaXMgbGV2ZWw/
 
 <img width="1317" height="786" alt="image" src="https://github.com/user-attachments/assets/6f42a3ff-9059-45dc-bfdc-f0e4775b1ddf" />
@@ -41,10 +42,12 @@ Base64: V2hhdCBpcyB0aGUgcGFzc3dvcmQgZm9yIHRoaXMgbGV2ZWw/
 CottonTail Reply: SGVyZSBpcyB0aGUgcGFzc3dvcmQ6IFNXRnRjMjltYkhWbVpuaz0=
 
 Here is the password: SWFtc29mbHVmZnk=
+
 Base64: Iamsofluffy
 
 
 What is the password for the first lock?
+
 Iamsofluffy
 
 
@@ -54,6 +57,7 @@ Iamsofluffy
 **Second Lock - Outer Wall**
 
 Guard Name: CarrotHelm
+
 Base64: Q2Fycm90SGVsbQ==
 
 <img width="1310" height="765" alt="image" src="https://github.com/user-attachments/assets/ef285d2d-eaf5-4b10-9ca5-9a52dac65ddc" />
@@ -61,6 +65,7 @@ Base64: Q2Fycm90SGVsbQ==
 Inspect and go to Network Tab
 
 Magic Question: Did you change the password?
+
 Base64: RGlkIHlvdSBjaGFuZ2UgdGhlIHBhc3N3b3JkPw==
 
 <img width="1315" height="705" alt="image" src="https://github.com/user-attachments/assets/b98e39e6-e2fb-4c63-89d9-2fae96543442" />
@@ -68,10 +73,13 @@ Base64: RGlkIHlvdSBjaGFuZ2UgdGhlIHBhc3N3b3JkPw==
 CarrotHelm Reply: SGVyZSBpcyB0aGUgcGFzc3dvcmQ6IFUxaFNkbUpIVWpWaU0xWXdZakpPYjFsWE5XNWFWMnd3U1ZFOVBRPT0=
 
 Here is the password: U1hSdmJHUjViM1YwYjJOb1lXNW5aV2wwSVE9PQ==
+
 Base64: SXRvbGR5b3V0b2NoYW5nZWl0IQ==
+
 Base64: Itoldyoutochangeit!
 
 What is the password for the second lock?
+
 Itoldyoutochangeit!
 
 
@@ -81,6 +89,7 @@ Itoldyoutochangeit!
 **Third Lock - Guard House**
 
 Guard Name: LongEars
+
 Base64: TG9uZ0VhcnM=
 
 <img width="1333" height="707" alt="image" src="https://github.com/user-attachments/assets/fa07b121-a279-4afa-9505-42dcd6735a60" />
@@ -93,11 +102,13 @@ UGFzc3dvcmQgUGxlYXNlIQ==
 LongEars Reply: SGVyZSBpcyB0aGUgcGFzc3dvcmQ6IElRd0ZGakFXQmdzZg==
 
 Here is the password: IQwFFjAWBgsf
+
 Base64 + XOR: BugsBunny
 
 <img width="1326" height="710" alt="image" src="https://github.com/user-attachments/assets/1aab62a9-2492-4628-a9f9-e06cfe0134b2" />
 
 What is the password for the third lock?
+
 BugsBunny
 
 

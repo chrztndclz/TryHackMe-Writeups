@@ -92,7 +92,19 @@ The file is also mentioned in one of the TI reports.
 What is the title of the report mentioning this hash?
 
 
-****** *** *******:*** ***** ********** *******
+<img width="749" height="437" alt="image" src="https://github.com/user-attachments/assets/01a36a23-7922-4c61-b9b7-3b43f3c06076" />
 
+`Answer: Behind the Curtain: How Lumma Affiliates Operate`
+
+
+Read the TI report titled "Behind the Curtain: How Lumma Affiliates Operate" from this link https://www.recordedfuture.com/research/behind-the-curtain-how-lumma-affiliates-operate
 
 Which team did the author of the malware start collaborating with in early 2024?
+
+
+<img width="1430" height="636" alt="image" src="https://github.com/user-attachments/assets/703661c6-5cb3-472c-9a90-bef7d0742570" />
+
+`Answer: GhostSocks`
+
+
+

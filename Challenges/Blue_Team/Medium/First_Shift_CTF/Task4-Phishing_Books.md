@@ -163,6 +163,49 @@ Because the attacker registered and used a look-alike domain (kinglord.ac.uk) to
 
 What is the file extension of the attached file?
 
+<img width="743" height="289" alt="image" src="https://github.com/user-attachments/assets/c25b94d5-363e-4f05-99cb-82c345fe254f" />
+
+`Answer: .html`
+
 ---
 
+What is the MD5 hash of the .HTML file?
 
+curl http://lib-service.com:8083/ -o library-invoice.pdf.html
+md5sum library-invoice.pdf.html
+
+
+---
+
+What is the landing page of the phishing attack?
+
+<img width="1298" height="715" alt="image" src="https://github.com/user-attachments/assets/6a781596-ad4f-4076-9cef-c5ccfba5cbef" />
+
+
+`Answer: http://lib-service.com:8083/`
+
+---
+
+Which MITRE technique ID was used inside the attached file?
+
+
+---
+
+What is the hidden message the attacker left in the file?
+
+
+---
+
+Which line in the attached file is responsible for decoding the URL redirect?
+
+---
+
+What is the first URL in the redirect chain?
+
+---
+
+What is the Threat Actor associated with this malicious file and/or URL?
+
+---
+
+What is the main target of this Threat Actor according to MITRE?

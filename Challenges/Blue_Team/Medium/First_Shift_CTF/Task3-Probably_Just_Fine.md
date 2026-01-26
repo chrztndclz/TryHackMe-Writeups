@@ -31,6 +31,7 @@ What is the ASN number related to the IP?
 
 `Answer: 212238`
 
+---
 
 Which service is offered from this IP?
 
@@ -40,9 +41,9 @@ Which service is offered from this IP?
 
 `Answer: vpn`
 
+---
 
 Paste the hash (b8e02f2bc0ffb42e8cf28e37a26d8d825f639079bf6d948f8debab6440ee5630) to VirusTotal website.
-
 
 What is the filename of the file related to the hash?
 
@@ -50,6 +51,7 @@ What is the filename of the file related to the hash?
 
 `Answer: zY9sqWs.exe`
 
+---
 
 What is the threat signature that Microsoft assigned to the file?
 
@@ -57,6 +59,7 @@ What is the threat signature that Microsoft assigned to the file?
 
 `Answer: Trojan:Win32/LummaStealer.PM!MTB`
 
+---
 
 One of the contacted domains is part of a large malicious infrastructure cluster.
 Based on its HTTPS certificate, how many domains are linked to the same campaign?
@@ -74,7 +77,7 @@ Based on its HTTPS certificate, how many domains are linked to the same campaign
 
 `Answer: 151`
 
-
+---
 
 Paste the hash (b8e02f2bc0ffb42e8cf28e37a26d8d825f639079bf6d948f8debab6440ee5630) to TryDetectThis website. 
 
@@ -87,6 +90,7 @@ What line is present in the rule's "condition" field?
 
 `Answer: uint16(0) == 0x5a4d and any of them`
 
+---
 
 The file is also mentioned in one of the TI reports.
 What is the title of the report mentioning this hash?
@@ -96,6 +100,7 @@ What is the title of the report mentioning this hash?
 
 `Answer: Behind the Curtain: How Lumma Affiliates Operate`
 
+---
 
 Read the TI report titled "Behind the Curtain: How Lumma Affiliates Operate" from this link https://www.recordedfuture.com/research/behind-the-curtain-how-lumma-affiliates-operate
 
@@ -106,5 +111,22 @@ Which team did the author of the malware start collaborating with in early 2024?
 
 `Answer: GhostSocks`
 
+---
 
+A Mexican-based affiliate related to the malware family also uses other infostealers.
+Which mentioned infostealer targets Android systems?
 
+<img width="1421" height="529" alt="image" src="https://github.com/user-attachments/assets/452f505d-239f-4c51-9b74-d7f5af319f4b" />
+
+`Answer: CraxsRAT`
+
+---
+
+The report states that the affiliates behind the malware use the services of AnonRDP.
+Which MITRE ATT&CK sub-technique does this align with?
+
+<img width="931" height="476" alt="image" src="https://github.com/user-attachments/assets/8a947ba8-97df-40b0-98c8-7e3f3fbc1070" />
+
+AnonRDP falls under T1583.003 (Acquire Infrastructure: Virtual Private Server) because it provides anonymous VPS/RDP infrastructure that threat actors can easily obtain and use to host, control, and operate malicious activities without attribution or takedown risk.
+
+`Answer: T1583.003`

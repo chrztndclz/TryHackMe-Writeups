@@ -18,6 +18,11 @@ You just stare at it for a second. It's been less than 4 hours since monitoring 
 
 What is the hostname where the Initial Access occurred?
 
+<img width="1282" height="206" alt="image" src="https://github.com/user-attachments/assets/065954e0-0a74-43b0-9fb5-8483066cdec3" />
+
+
+`Answer: JP-BROWN-WS`
+
 ---
 
 What MITRE subtechnique ID describes the initial code execution on the beachhead?

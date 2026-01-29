@@ -18,8 +18,7 @@ You just stare at it for a second. It's been less than 4 hours since monitoring 
 
 What is the hostname where the Initial Access occurred?
 
-<img width="1282" height="206" alt="image" src="https://github.com/user-attachments/assets/065954e0-0a74-43b0-9fb5-8483066cdec3" />
-
+<img width="1065" height="694" alt="image" src="https://github.com/user-attachments/assets/b0f460f2-860b-435a-9853-321b71abbf53" />
 
 `Answer: JP-BROWN-WS`
 
@@ -27,9 +26,17 @@ What is the hostname where the Initial Access occurred?
 
 What MITRE subtechnique ID describes the initial code execution on the beachhead?
 
+<img width="1914" height="698" alt="image" src="https://github.com/user-attachments/assets/d22a8386-9adb-43c1-a203-e57c6b50673d" />
+
+`Answer: T1204.002`
+
 ---
 
 What is the full path of the malicious file that led to Initial Access?
+
+<img width="1913" height="562" alt="image" src="https://github.com/user-attachments/assets/13886303-f6b7-4260-95a8-58c72448c3f0" />
+
+`Answer: C:\Users\jp.brown\Downloads\TravisClart_Resume.pdf.lnk`
 
 ---
 

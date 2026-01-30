@@ -8,19 +8,6 @@ The alert you are looking at is called Reverse Shell Outbound Connection Detecte
 
 ---
 
-Network Logs File
-
-Line 4348 
-time_iso="2025-11-30T09:30:12.000000Z" log_type="ids" sourcetype="network:ids" host="jira" timestamp="1764495012.0" severity="High" src_ip="10.10.10.100" dest_ip="1.1.1.1" dest_port="8080" proto="TCP" msg="Reverse Shell Outbound Connection Detected" sid="SID:2100498"
-
-Line 4347
-time_iso="2025-11-30T09:30:10.000000Z" log_type="http" sourcetype="network:http" host="jira" timestamp="1764495010.0" clientip="1.1.1.1" method="POST" uri="/vulnerable_endpoint?cmd=RCE" status="404" agent="CVE-202X-EXPLOIT" c2_port="8080" bytes="512"
-
-time_iso="2025-11-30T09:30:13.000000Z" log_type="netflow" sourcetype="network:netflow" host="router" timestamp="1764495013.0" src_ip="10.10.10.100" dest_ip="1.1.1.1" dest_port="8080" packets="12" bytes="4200" duration="2.4"
-
-
----
-
 From which internal IP did the suspicious connection originate?
 
 Search to Splunk

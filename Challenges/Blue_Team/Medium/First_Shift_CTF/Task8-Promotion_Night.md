@@ -1,4 +1,4 @@
-<img width="1058" height="705" alt="image" src="https://github.com/user-attachments/assets/f457cacb-b45b-42e4-9919-4f1655ea2bde" />## Promotion Night
+## Promotion Night
 
 It was a glorious Friday at ProbablyFine Ltd. After weeks of sales calls and PoC demos, the team finally signed a contract with DeceptiTech - a major tech company recently hit with ransomware and in need of an MSSP. Monitoring was set to begin on Monday, but some of their clouds and on-premises systems had already been onboarded into the SIEM.
 
@@ -13,12 +13,34 @@ Important Details
 
 "Potential Ransom Note on DC-01"
 
+Share Path(where the ransomwere is placed: \\DC-01\SYSVOL\gaze.exe 
 
 ---
+
+
+
+
+---
+
 
 What was the network share path where ransomware was placed?
 
 ```
+Searches:
+
+index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "\\\\DC-01\\SYSVOL"
+
+Extract the share path from Message
+index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "gaze.exe"
+| rex field=Message "(?<share_path>\\\\DC-01\\\\SYSVOL)"
+| table _time host share_path Message
+
+Show all files written to that share
+index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "\\\\DC-01\\SYSVOL"
+| table _time Image User Message
+
+---------------------------------------------------------------------------------------------
+
 Search: index=* "\\\\" host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 
 Find "Message" field
@@ -32,12 +54,69 @@ Find "Message" field
 
 ---
 
+
+
+
 What is the value ransomware created to persist on reboot?
+
+```
+Searches
+
+index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=13
+
+index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=13
+("Run" OR "RunOnce")
+
+---------------------------------------------------------------------------------------------
+
+Search: index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=13
+("Run" OR "RunOnce")
+
+Find "Target Object" 
+
+```
+
+<img width="1595" height="640" alt="image" src="https://github.com/user-attachments/assets/ed547ddd-5e2c-401a-946a-76caefa1a85c" />
+
+`Answer: BabyLockerKZ`
 
 
 ---
 
+index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" (EventCode=11 or EventCode=13) gaze.exe 
+
+
+index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=11
+| table _time TargetFilename
+
+
+index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
+| regex TargetFilename="\.([A-Za-z0-9]{8})$"
+| table TargetFilename
+
+
+index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
+| rex field=TargetFilename "\.(?<encrypted_ext>[A-Za-z0-9]{8})$"
+| stats count by encrypted_ext
+
+
+
+index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "gaze.exe"
+| rex field=Message "(?<share_path>\\\\DC-01\\\\SYSVOL)"
+| rex field=Message "\.(?<encrypted_ext>[A-Za-z0-9]{8})"
+| table _time host share_path encrypted_ext Message
+
+
+index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" TargetObject="*"
+| rex field=TargetObject "\.(?<encrypted_ext>[A-Za-z0-9]{8})$"
+| table _time TargetObject encrypted_ext Message
+
+
 What was the most likely extension of the encrypted files?
+
+Note: The target object maybe should be where we find this "BabyLockerKZ"
+
+and probably the rulename for the next questions and the answer to this is connected
 
 
 ---

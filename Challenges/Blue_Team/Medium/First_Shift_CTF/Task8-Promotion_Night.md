@@ -9,20 +9,6 @@ The shift was quiet. Too quiet. Then a critical alert appeared: "Potential Ranso
 
 ---
 
-Important Details 
-
-"Potential Ransom Note on DC-01"
-
-Share Path(where the ransomwere is placed: \\DC-01\SYSVOL\gaze.exe 
-
----
-
-
-
-
----
-
-
 What was the network share path where ransomware was placed?
 
 ```
@@ -150,31 +136,141 @@ Search: index=* *gaze.exe CommandLine=* CurrentDirectory="\\\\DC-01\\SYSVOL\\"
 
 Which artifact did the adversary create to persist on the beachhead?
 
+```
+Search: index=* host="SRV-JMP" source="WinEventLog:Security" ComputerName="SRV-JMP.deceptitech.thm" Task_Name=* Account_Name="eric.portman"
+
+```
+
+<img width="985" height="728" alt="image" src="https://github.com/user-attachments/assets/f9c63ed0-5645-4415-aa5c-12c7caa4fb85" />
+
+`Answer: \LanguageSync`
 
 ---
 
 What is the MD5 hash of the embedded initial shellcode?
 
+
+
+```
+
+Search: index=* *FromBase64String
+
+Look for ScriptBlock ID
+
+Search: index=* *0cac5780-8b57-4146-82fd-0554906d4c43* "1 of 27"
+
+Copy all of the 27 Scripts
+Paste it all together in Cyberchef
+
+Recipe: From Base64, XOR
+
+```
+
+<img width="1908" height="724" alt="image" src="https://github.com/user-attachments/assets/e961e4e8-ed02-4fa2-b631-c051dd3ff684" />
+
+
+<img width="1724" height="338" alt="image" src="https://github.com/user-attachments/assets/029f690f-3084-435f-b329-33c8387ddbc4" />
+
+
+<img width="1914" height="740" alt="image" src="https://github.com/user-attachments/assets/addf5265-123b-47af-a262-1c1d061328e3" />
+
+
+<img width="1913" height="778" alt="image" src="https://github.com/user-attachments/assets/2c87d9ea-82be-4b22-8501-50e51ba91b80" />
+
+`Answer: 27B0D51406B5360B49D968D69DF0F3E6`
+
 ---
 
 Which C2 framework was used by the adversary in the intrusion?
+
+The adversary used Cobalt Strike because the observed beaconing, lateral movement, and payload staging match its known C2 behaviors and TTPs.
+
+`Answer: Cobalt Strike`
 
 ---
 
 What hostname did the adversary log in from on the beachhead?
 
+```
+
+Search: index=* sourcetype="wineventlog"
+
+```
+
+<img width="914" height="712" alt="image" src="https://github.com/user-attachments/assets/e7e62a08-fcaa-48bd-811b-3c1043177468" />
+
+`Answer: DESKTOP-J9PR0CO`
+
 ---
 
 What was the UNC path that likely contained AWS credentials?
+
+
+```
+
+Search: index=* *shared
+
+```
+
+<img width="1240" height="609" alt="image" src="https://github.com/user-attachments/assets/80d8c9a1-bf36-4169-957d-a9d0fcc8cc9d" />
+
+`Answer: \\SRV-ITFS\Integrations\cloud-keys.csv`
 
 ---
 
 From which IP address did the adversary access AWS?
 
+```
+
+Search:
+index=* src_ip="*" eventSource=*
+|  table src_ip eventSource
+|  stats count by src_ip
+
+
+Confirmation Search: index=* src_ip="*" eventSource=*  src_ip="152.42.128.207" | table src_ip eventSource 
+
+```
+
+<img width="1912" height="442" alt="image" src="https://github.com/user-attachments/assets/aac6791a-c051-4e6e-9bf4-32642ab1838a" />
+
+<img width="1914" height="393" alt="image" src="https://github.com/user-attachments/assets/68930c87-5c17-4037-b6c0-5ca1061b78d8" />
+
+`Answer: 152.42.128.207`
+
 ---
 
 Which two sensitive files did the adversary exfiltrate from AWS?
 
+```
+
+Search:
+index=* src_ip="152.42.128.207" eventSource=s3.amazonaws.com
+
+```
+
+<img width="1912" height="613" alt="image" src="https://github.com/user-attachments/assets/0e53e554-04f0-48f0-aa80-dc29d9adb954" />
+
+<img width="1014" height="682" alt="image" src="https://github.com/user-attachments/assets/19ed2a5b-99e3-433e-911c-8b30a2470b3c" />
+
+`Answer: beta.tar.gz, latest.tar.gz
+
+
 ---
 
 What file did the adversary upload to S3 in place of the wiped ones?
+
+```
+
+Search:
+index=* src_ip="152.42.128.207" eventSource=s3.amazonaws.com
+
+```
+
+<img width="1912" height="613" alt="image" src="https://github.com/user-attachments/assets/0e53e554-04f0-48f0-aa80-dc29d9adb954" />
+
+<img width="958" height="393" alt="image" src="https://github.com/user-attachments/assets/0ddb1e94-db24-4690-acfd-ccf24bfaf3de" />
+
+
+`Answer: YOU-HAVE-BEEN-PWNED.txt`
+

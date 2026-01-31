@@ -26,21 +26,6 @@ Share Path(where the ransomwere is placed: \\DC-01\SYSVOL\gaze.exe
 What was the network share path where ransomware was placed?
 
 ```
-Searches:
-
-index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "\\\\DC-01\\SYSVOL"
-
-Extract the share path from Message
-index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "gaze.exe"
-| rex field=Message "(?<share_path>\\\\DC-01\\\\SYSVOL)"
-| table _time host share_path Message
-
-Show all files written to that share
-index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "\\\\DC-01\\SYSVOL"
-| table _time Image User Message
-
----------------------------------------------------------------------------------------------
-
 Search: index=* "\\\\" host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
 
 Find "Message" field
@@ -55,20 +40,9 @@ Find "Message" field
 ---
 
 
-
-
 What is the value ransomware created to persist on reboot?
 
 ```
-Searches
-
-index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=13
-
-index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=13
-("Run" OR "RunOnce")
-
----------------------------------------------------------------------------------------------
-
 Search: index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=13
 ("Run" OR "RunOnce")
 
@@ -83,56 +57,94 @@ Find "Target Object"
 
 ---
 
-index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" (EventCode=11 or EventCode=13) gaze.exe 
-
-
-index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=11
-| table _time TargetFilename
-
-
-index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
-| regex TargetFilename="\.([A-Za-z0-9]{8})$"
-| table TargetFilename
-
-
-index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
-| rex field=TargetFilename "\.(?<encrypted_ext>[A-Za-z0-9]{8})$"
-| stats count by encrypted_ext
-
-
-
-index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" "gaze.exe"
-| rex field=Message "(?<share_path>\\\\DC-01\\\\SYSVOL)"
-| rex field=Message "\.(?<encrypted_ext>[A-Za-z0-9]{8})"
-| table _time host share_path encrypted_ext Message
-
-
-index=* host="DC-01" source="WinEventLog:Microsoft-Windows-Sysmon/Operational" TargetObject="*"
-| rex field=TargetObject "\.(?<encrypted_ext>[A-Za-z0-9]{8})$"
-| table _time TargetObject encrypted_ext Message
-
 
 What was the most likely extension of the encrypted files?
 
-Note: The target object maybe should be where we find this "BabyLockerKZ"
+```
+Search: index=* host="SRV-JMP" CommandLine="C:\\Windows\\Temp\\gaze.exe"
 
-and probably the rulename for the next questions and the answer to this is connected
+Find "Hashes"
 
+Hashes: SHA256=6D000A159FE10AF1B29DDF4E4015931A9E9D0A020AEEF0C602D8C5419B5966E6
+
+Go to virus total (Behavior -> Files Written)
+
+c:\msocache\all users\{90160000-0011-0000-1000-0000000ff1ce}-c\office32ww.xml.danger17
+
+```
+
+<img width="1911" height="628" alt="image" src="https://github.com/user-attachments/assets/bd4fb2de-67e6-4018-902a-3488857c6c75" />
+
+
+<img width="1417" height="152" alt="image" src="https://github.com/user-attachments/assets/dba252f7-7780-4bf8-af06-3ef64db92b9f" />
+
+
+<img width="983" height="611" alt="image" src="https://github.com/user-attachments/assets/34b4b03f-5d94-4a2c-a10b-63c4127f6f95" />
+
+
+`Answer: .danger17`
 
 ---
 
 Which MITRE technique ID was used to deploy ransomware?
 
+```
+Search:
+index=* host="SRV-JMP" CommandLine=*
+| table CommandLine
+
+Search "shadowcopy" to mitre.org
+
+```
+
+<img width="1013" height="543" alt="image" src="https://github.com/user-attachments/assets/58d8e004-c1a6-4fba-9c29-d839299b13b9" />
+
+<img width="1906" height="739" alt="image" src="https://github.com/user-attachments/assets/e67547b2-b710-4e2c-82e8-2b5d6ac889d7" />
+
+`Answer: T1047`
 
 ---
 
 What ports of SRV-ITFS did the adversary successfully scan?
 
+```
+Search: index=* *net view CommandLine=*  CommandLine="net  view SRV-ITFS"
+
+We must find all of the ports related to this event.
+
+
+Search:
+index=* host="SRV-JMP" DestinationPort=*
+| table DestinationPort
+| sort DestinationPort
+
+
+```
+
+<img width="1911" height="731" alt="image" src="https://github.com/user-attachments/assets/7d0d349c-c9e2-4898-8088-64995a7a79f8" />
+
+<img width="1911" height="649" alt="image" src="https://github.com/user-attachments/assets/6ba7f26f-737d-4cc8-a555-978cc0185764" />
+
+Note: Explore the ports (You can still narrow down the search)
+
+`Answer: 135, 139, 445, 3389, 5985`
 
 ---
 
 What is the full path to the malware that performed the Discovery?
 
+```
+Search: index=* *gaze.exe CommandLine=* CurrentDirectory="\\\\DC-01\\SYSVOL\\"
+
+```
+
+<img width="1900" height="698" alt="image" src="https://github.com/user-attachments/assets/9af32607-7f8b-43c8-ad85-7edc8f2cd824" />
+
+<img width="1576" height="184" alt="image" src="https://github.com/user-attachments/assets/0caa08d9-5077-4a39-817c-55ba00b9eff2" />
+
+<img width="1539" height="214" alt="image" src="https://github.com/user-attachments/assets/74998f97-a9a7-4492-8227-f2402f833236" />
+
+`Answer: C:\Windows\System32\fr-FR\ruche.dll`
 
 ---
 

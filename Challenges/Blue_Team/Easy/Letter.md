@@ -52,3 +52,17 @@ He would be so proud to see you out on the water, too.
 
 With all my love,
 Audette
+
+---
+
+**Answer the questions below: 
+
+Question 1: What is the postal code of the delivery address on the envelope?
+
+Route 1 – Decoding the Postal Barcode (Intended Solution)**
+
+The envelope contains the following barcode:
+
+..IIIII   I.II.I   II..II   III..I   .II.II
+
+

@@ -31,6 +31,7 @@ Newspaper_clipping.png
 
 <img width="985" height="385" alt="image" src="https://github.com/user-attachments/assets/f05a42f2-1ee0-4b83-954e-83d349f9bae5" />
 
+
 Note.txt
 
 Mon cher Édouard,
@@ -55,14 +56,32 @@ Audette
 
 ---
 
-**Answer the questions below: 
+**Answer the questions below: **
 
-Question 1: What is the postal code of the delivery address on the envelope?
+**Question 1: What is the postal code of the delivery address on the envelope?**
 
-Route 1 – Decoding the Postal Barcode (Intended Solution)**
+**Route 1 – Decoding the Postal Barcode (Intended Solution)**
 
 The envelope contains the following barcode:
 
 ..IIIII   I.II.I   II..II   III..I   .II.II
 
+<img width="434" height="323" alt="image" src="https://github.com/user-attachments/assets/15f0a7d8-f0d4-4312-9af0-9f96875ea2d7" />
+
+This pattern resembles a **French Postal Barcode**, where each combination of bars corresponds to a digit.
+
+```
+0	..||||
+1	.|.|||
+2	.||.||
+3	.|||.|
+4	|..|||
+5	|.|.||
+6	|.||.|
+7	||..||
+8	||.|.|
+9	|||..|
+```
+
+Replacing each I with a vertical bar (|) gives and this produces:
 

@@ -22,13 +22,17 @@ Example: THM{Pierre-Henry_Lagaffe_23}
 ---
 
 Task File: 
+
 letter.png
+
 <img width="574" height="428" alt="image" src="https://github.com/user-attachments/assets/1ef279a7-556a-4de4-9365-4e18ab34fc47" />
 
 Newspaper_clipping.png
+
 <img width="985" height="385" alt="image" src="https://github.com/user-attachments/assets/f05a42f2-1ee0-4b83-954e-83d349f9bae5" />
 
 Note.txt
+
 Mon cher Édouard,
 
 Aujourd'hui, en rangeant le grenier chez mes grands-parents, je suis tombée sur cette vieille coupure de journal. Ton arrière-grand-père n'avait même pas l'âge de passer le permis quand il s'est distingué ce jour-là. Le benjamin de l'équipe, et certainement pas le moins courageux.
@@ -38,7 +42,7 @@ Il serait si fier de te voir sur l'eau à ton tour.
 Avec toute mon affection,
 Audette
 
-Note Translation: 
+**Note Translation:** 
 
 My dear Édouard,
 

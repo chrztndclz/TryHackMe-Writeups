@@ -108,7 +108,7 @@ Deux bateaux de pêche en perdition et deux canots de sauvetage sombrent au larg
 
 A disaster off the coast of Finistère.
 
-Two fishing boats in distress and two lifeboats sink off** Penmarch.**
+Two fishing boats in distress and two lifeboats sink off **Penmarch.**
 
 Searching for the postal code of Penmarch reveals:
 
@@ -121,6 +121,25 @@ This matches the value obtained from decoding the barcode.
 Final Answer:
 ``29760``
 
+---
 
+**What is the flag?**
+
+Format: THM{Name_Surname_age}
+
+<img width="975" height="381" alt="image" src="https://github.com/user-attachments/assets/d17f48ac-ea89-463b-b516-a8ffd5f98c58" />
+
+**Step 1 – Identify the Newspaper**
+The newspaper shown in the challenge is L'Ouest-Éclair, a French regional daily newspaper published in Brittany.
+
+**One visible headline reads:**
+   Amundsen a-t-il atteint le pôle Nord ?
+   
+**Translation:**
+   Has Amundsen reached the North Pole?
+
+   This refers to the Norwegian explorer Roald Amundsen and his 1925 Arctic expedition in the month of May.
+   
+**Note: **Use image search, then go to wikipedia
 
 

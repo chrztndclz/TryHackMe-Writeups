@@ -85,3 +85,42 @@ This pattern resembles a **French Postal Barcode**, where each combination of ba
 
 Replacing each I with a vertical bar (|) gives and this produces:
 
+```
+..IIIII   	I.II.I    	II..II    	III..I    	.II.II
+   0	         6	         7	        9	           2
+```
+
+French postal barcodes are read **from right to left**, resulting in:
+
+``**29760**``
+
+**Route 2 – Using the Newspaper Clue (Alternative Solution)**
+
+<img width="975" height="260" alt="image" src="https://github.com/user-attachments/assets/868bce9d-c0f1-4cef-b745-fdc22083aa52" />
+
+The partially obscured newspaper contains the headline:
+
+Une catastrophe sur les côtes du Finistère
+
+Deux bateaux de pêche en perdition et deux canots de sauvetage sombrent au large de Penmarc
+
+**Translation:**
+
+A disaster off the coast of Finistère.
+
+Two fishing boats in distress and two lifeboats sink off** Penmarch.**
+
+Searching for the postal code of Penmarch reveals:
+
+Penmarch, Finistère, France → Postal Code: 29760
+
+This matches the value obtained from decoding the barcode.
+
+**Note:** This is just another route, you can just have a hint that the removed part of the newspaper is something important or useful and you can try if it’s connected to the challenge, somehow it is and through that we found the postal code itself. Otherwise, the more correct route is decrypting the code in the letter. 
+
+Final Answer:
+``29760``
+
+
+
+

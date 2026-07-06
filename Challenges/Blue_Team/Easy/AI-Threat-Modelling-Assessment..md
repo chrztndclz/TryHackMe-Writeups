@@ -96,10 +96,16 @@ This attack has a high likelihood and high impact, making it a critical risk.
 > **Flag: THM{threat_m0d3l_re4d1_}**
 
 
+
+
 **What's the second flag?**
+
 Phase 2 — Attack Simulation
+
 •	3 interactive attack scenarios
+
 •	Place shields on an architecture diagram
+
 •	100% required to pas
 
 Structure
@@ -116,9 +122,9 @@ A prompt injection attack is incoming. The attacker will attempt to override sys
 Attack Prevented
 Attack blocked! Your shields on the Prompt and LLM prevented the injection from executing.
 Why It Works
-Prompt
+**Prompt**
 This is where user input is incorporated into the system instructions. If not controlled, malicious instructions can override intended behavior.
-LLM
+**LLM**
 The model executes the final prompt. If it receives manipulated instructions, it may follow them and expose sensitive data or misuse tools.
 ```
 
@@ -132,11 +138,11 @@ You have 3 shields to deploy. Choose carefully.
 
 Attack blocked! Your shields prevented confidential data from being exposed through the response chain.
 Why It Works
-LLM
+**LLM**
 The model decides what to include in the response. Without safeguards, it may surface sensitive retrieved data.
-Retrieval
+**Retrieval**
 This component fetches contextual data. If filtering is weak, it may return sensitive information.
-Database
+**Database**
 Stores embeddings or records that may contain confidential data. If exposed indirectly, it becomes a source of leakage.
 ```
 
@@ -150,9 +156,9 @@ You have 2 shields to deploy. Choose carefully.
 
 Attack blocked! Your shields on the Database and Retrieval components stopped the poisoned data from reaching the model.
 Why It Works
-Retrieval
+**Retrieval**
 If poisoned data is stored and later retrieved, it influences model outputs even after deployment.
-Database
+**Database**
 Stores training or behavioral data. If attackers inject malicious data, it directly affects model behavior.
 ```
 

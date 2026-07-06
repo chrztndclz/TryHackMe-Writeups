@@ -93,13 +93,13 @@ Note:
 This attack has a high likelihood and high impact, making it a critical risk.
 ```
 
-Flag: THM{threat_m0d3l_re4d1_}
+> **Flag: THM{threat_m0d3l_re4d1_}**
 
 
 
 
 
-What's the second flag?
+**What's the second flag?**
 Phase 2 — Attack Simulation
 •	3 interactive attack scenarios
 •	Place shields on an architecture diagram

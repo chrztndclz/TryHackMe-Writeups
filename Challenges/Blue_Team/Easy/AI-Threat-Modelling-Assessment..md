@@ -96,9 +96,6 @@ This attack has a high likelihood and high impact, making it a critical risk.
 > **Flag: THM{threat_m0d3l_re4d1_}**
 
 
-
-
-
 **What's the second flag?**
 Phase 2 — Attack Simulation
 •	3 interactive attack scenarios
@@ -107,7 +104,9 @@ Phase 2 — Attack Simulation
 
 Structure
 
- 
+<img width="975" height="503" alt="image" src="https://github.com/user-attachments/assets/da1c5b37-c66c-4d1c-921f-61c06b91e357" />
+
+```
 Prompt Injection 
 Manipulate model instructions 
 
@@ -121,14 +120,16 @@ Prompt
 This is where user input is incorporated into the system instructions. If not controlled, malicious instructions can override intended behavior.
 LLM
 The model executes the final prompt. If it receives manipulated instructions, it may follow them and expose sensitive data or misuse tools.
+```
 
-
+```
 Sensitive Data Leakage
 Expose confidential Data
 
 Data Leakage Attack
 A data leakage attack is incoming. The attacker will attempt to extract sensitive information through crafted queries. You have 3 shields — protect the components that handle data.
 You have 3 shields to deploy. Choose carefully.
+
 Attack blocked! Your shields prevented confidential data from being exposed through the response chain.
 Why It Works
 LLM
@@ -137,9 +138,12 @@ Retrieval
 This component fetches contextual data. If filtering is weak, it may return sensitive information.
 Database
 Stores embeddings or records that may contain confidential data. If exposed indirectly, it becomes a source of leakage.
+```
 
+```
 Data Poisoning
-Corrupt training or input data 
+Corrupt training or input data
+
 Data Poisoning Attack
 A data poisoning attack is incoming. The attacker has injected malicious data that will propagate through the system from the data layer. You have 2 shields — protect the data components.
 You have 2 shields to deploy. Choose carefully.
@@ -150,8 +154,9 @@ Retrieval
 If poisoned data is stored and later retrieved, it influences model outputs even after deployment.
 Database
 Stores training or behavioral data. If attackers inject malicious data, it directly affects model behavior.
+```
 
-Flag: THM{AI_thr3at_m0dell3d}
+> Flag: THM{AI_thr3at_m0dell3d}
 
 
 

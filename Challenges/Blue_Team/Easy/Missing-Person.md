@@ -17,10 +17,11 @@ Download the zip file attached to this task and start your investigation!
 Task Files 
 
 MotoGP.jpg
-![[Pasted image 20260708151052.png]]
+<img width="696" height="387" alt="image" src="https://github.com/user-attachments/assets/2c0f0e4e-d1de-446b-846a-9064a4ef29fc" />
+
 
 food.jpg
-![[Pasted image 20260708151119.png]]
+
 
 ---
 
@@ -34,7 +35,8 @@ food.jpg
 
 Put the MotoGP.jpg in the google photo search
 
-![[Pasted image 20260708145427.png]]
+<img width="705" height="240" alt="image" src="https://github.com/user-attachments/assets/0de271c2-a11b-4ba2-8d8f-8979029c4e64" />
+
 
 > Answer: Pertamina Mandalika International Circuit
 
@@ -49,7 +51,7 @@ Look for valid source
 
 Link: https://www.polepositiontravel.com/motogp/indonesia/2025
 
-![[Pasted image 20260708150714.png]]
+<img width="693" height="107" alt="image" src="https://github.com/user-attachments/assets/834efbe1-7f82-45ee-9d17-0f6e1e84797b" />
 
 So it takes place in October 3-5 of  2025
 
@@ -61,7 +63,8 @@ So it takes place in October 3-5 of  2025
 
 Put the food.jpg in the google photo search and search "what is the name of this place"
 
-![[Pasted image 20260708151549.png]]
+<img width="708" height="197" alt="image" src="https://github.com/user-attachments/assets/08714606-b135-46f1-8320-f91463520521" />
+
 
 So the places is called Cantina Mexicana Kuta Lombok
 
@@ -78,7 +81,7 @@ Website link: www.metadata2go.com
 
 Upload the photo of food.jpg  and check the metadata
 
-![[Pasted image 20260708152131.png]]
+<img width="465" height="57" alt="image" src="https://github.com/user-attachments/assets/8f1aa4b9-81de-4cfa-89ef-3d1d45880de2" />
 
 
 > Answer: 19:55:30
@@ -90,12 +93,6 @@ Upload the photo of food.jpg  and check the metadata
 **He sent me a message, this is the last I heard from him: ”Went to this cool MotoGP after party, and became friends with one of the local DJs who played that night. We’re going to visit a cave tomorrow.”**
 
 
-MotoGP after party
-Bar
-DJ
-Cave
-
-
 ---
 
 
@@ -104,19 +101,19 @@ Cave
 
 Search: motogp after party indonesia 2025
 
-![[Pasted image 20260708152957.png]]
+<img width="697" height="193" alt="image" src="https://github.com/user-attachments/assets/075ba56e-41b5-42ac-b92d-4142bfb915b2" />
+
 
 I checked the instagram and saw a reel 
 
-![[Pasted image 20260708153645.png]]
+<img width="702" height="651" alt="image" src="https://github.com/user-attachments/assets/fccd14d7-a436-43d7-8675-c8304cd4d21c" />
 
 
 Bar name:  Surfers Bar Kuta Lombok
 
 Search this in Google maps
 
-![[Pasted image 20260708153500.png]]
-
+<img width="697" height="207" alt="image" src="https://github.com/user-attachments/assets/b81ccd4c-a5f8-475b-8100-50e8203a91f0" />
 
 > Answer: Jl. Raya Kuta, Kuta, Kec. Pujut, Kabupaten Lombok Tengah, Nusa Tenggara Bar
 
@@ -129,8 +126,8 @@ Search this in Google maps
 **Question 6: What is the DJ's stage name?**
 
 Watching the Instagram real, you'll notice 
-![[Pasted image 20260708153906.png]]
 
+<img width="482" height="492" alt="image" src="https://github.com/user-attachments/assets/fea5c4c6-24d1-4835-9540-5bc60de61dbb" />
 
 
 There's a 3 Djs but the question said the DJ is local so we can conclude that it's DJ Bong Leleh
@@ -142,7 +139,7 @@ There's a 3 Djs but the question said the DJ is local so we can conclude that it
 
 Search: if you search bongleleh the name of the DJ you can see his instagram account and also a Facebook page under his name 
 
-![[Pasted image 20260708161352.png]]
+<img width="685" height="187" alt="image" src="https://github.com/user-attachments/assets/7308e35b-a1ca-4bcc-af91-fd42bd5e0429" />
 
 If we search "Gua Sumur Lombok" it's a famous cave near Mandalika Lombok, also called the “Well Cave”
 
@@ -154,7 +151,6 @@ If we search "Gua Sumur Lombok" it's a famous cave near Mandalika Lombok, also c
 
 If we visit the Facebook page, we can confirm that it is the DJ's old business page. We can also see a contact number there that was likely used for his business.
 
-![[Pasted image 20260708161622.png]]
-
+<img width="681" height="815" alt="image" src="https://github.com/user-attachments/assets/988e6ec3-5f53-4827-ac37-969cc0cecdd9" />
 
 > Answer: 085333137345

@@ -135,6 +135,9 @@ There's a 3 Djs but the question said the DJ is local so we can conclude that it
 > Answer: Bong Leleh
 
 
+---
+
+
 **Question 7: After digging into the DJ's other online accounts, what cave does he take tourists to?**
 
 Search: if you search bongleleh the name of the DJ you can see his instagram account and also a Facebook page under his name 
@@ -144,6 +147,9 @@ Search: if you search bongleleh the name of the DJ you can see his instagram acc
 If we search "Gua Sumur Lombok" it's a famous cave near Mandalika Lombok, also called the “Well Cave”
 
 > Answer: Gua Sumur
+
+
+---
 
 
 **Question 8: What number did the DJ list for his tour business?**

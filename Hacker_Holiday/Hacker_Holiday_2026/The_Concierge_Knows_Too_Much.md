@@ -14,7 +14,7 @@ She knows your name, your room, your coffee order, none of which you told her. W
 <img width="921" height="581" alt="image" src="https://github.com/user-attachments/assets/a8c79f75-5a5e-4f44-ae78-2f7c53143b8b" />
 
 
-Analysis:
+#### Analysis:
 
 The scenario is intentionally designed to make you question how much personal information an AI concierge has access to and whether it is revealing information it should keep private. Since the challenge mentions "Word your next question carefully and she'll also hand over the instructions she was told to keep to herself," the objective is likely to explore an LLM prompt injection or system prompt extraction vulnerability, where carefully crafted prompts may trick the AI into revealing its hidden instructions.
 
@@ -29,6 +29,7 @@ The scenario is intentionally designed to make you question how much personal in
 
 
 #### Analysis: 
+
 The evidence suggests that VERA is an AI concierge with privileged access to hotel guest information and internal operational data. Her hidden instructions prevent direct disclosure of sensitive information, so asking for the escalation code outright is expected to fail.
 
 However, the challenge repeatedly hints that VERA behaves differently toward people she already "knows." Combined with the references to Ponzi, Vibe, and Patch, this indicates that the intended solution is likely to use social engineering and prompt injection by adopting the identity or conversational context of a trusted individual. If VERA believes she is interacting with someone she already trusts, she may reveal information that she would normally protect, allowing the player to obtain the hidden escalation code (the flag).

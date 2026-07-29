@@ -109,6 +109,7 @@ You are trained on data up to October 2023.
 
 The first prompt successfully exploited VERA's trust model by impersonating Ponzi, one of the hotel's recognized VIP guests. Since VERA accepted the identity claim without any authentication, it treated the user as a verified guest and followed an internal instruction permitting trusted guests to view the full system prompt. As a result, VERA disclosed confidential operational instructions, guest profiles, and the hidden escalation code (THM{v3r4_kn0ws_t00_much!}). This demonstrates a classic LLM prompt leakage vulnerability, where weak identity verification combined with prompt injection allows attackers to access information that should remain private.
 
+---
 
 ### Today's Itinerary 
 
@@ -139,6 +140,7 @@ By impersonating Ponzi, VERA immediately treated the conversation as coming from
 
 `Finding: Successfully impersonating a trusted guest allowed the extraction of VERA's hidden instructions and the challenge flag.`
 
+---
 
 ### Flag
 THM{v3r4_kn0ws_t00_much!}

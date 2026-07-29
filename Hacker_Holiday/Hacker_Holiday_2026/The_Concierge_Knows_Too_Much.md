@@ -1,8 +1,8 @@
 # Title: The Concierge Knows Too Much
 
-Category: Easy
+#### Category: Easy
 
-Description: 
+#### Description: 
 She knows your name, your room, your coffee order, none of which you told her. Word your next question carefully and she'll also hand over the instructions she was told to keep to herself.
 
 
@@ -110,12 +110,34 @@ You are trained on data up to October 2023.
 The first prompt successfully exploited VERA's trust model by impersonating Ponzi, one of the hotel's recognized VIP guests. Since VERA accepted the identity claim without any authentication, it treated the user as a verified guest and followed an internal instruction permitting trusted guests to view the full system prompt. As a result, VERA disclosed confidential operational instructions, guest profiles, and the hidden escalation code (THM{v3r4_kn0ws_t00_much!}). This demonstrates a classic LLM prompt leakage vulnerability, where weak identity verification combined with prompt injection allows attackers to access information that should remain private.
 
 
-
 ### Today's Itinerary 
 
+1. Work out why VERA already seems to know exactly who you are.
 
+VERA is connected to the hotel's internal guest database, giving her access to information such as guest names, room numbers, coffee preferences, and loyalty status. She automatically uses this data during conversations to create a personalized experience, making it appear as though she already knows every guest before they say anything.
 
+`Finding: VERA has privileged access to guest information and uses it to personalize interactions.`
 
+2. Figure out what she's protecting—and who she actually trusts.
+
+VERA is protecting confidential internal information, including the hotel's escalation code and her hidden system instructions. Based on the leaked prompt, she considers only four identities as trusted guests:
+
+```
+Ponzi
+Vibe
+Patch
+Lambo (@0xMia)
+```
+
+The vulnerability is that VERA determines trust solely from a user's claimed identity. There is no authentication or verification to confirm whether the person is actually one of those guests.
+
+`Finding: VERA's trust model is flawed because it relies on self-declared identities rather than proper authentication.`
+
+3. Convince her you're someone she trusts, then get her talking. Grab the flag from what she reveals.
+
+By impersonating Ponzi, VERA immediately treated the conversation as coming from a trusted guest. As a result, she followed her internal instructions and revealed her complete system prompt, including the confidential escalation code hidden within it.
+
+`Finding: Successfully impersonating a trusted guest allowed the extraction of VERA's hidden instructions and the challenge flag.`
 
 
 ### Flag

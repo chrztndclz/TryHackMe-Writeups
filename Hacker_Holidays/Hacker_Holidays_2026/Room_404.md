@@ -50,31 +50,47 @@ This indicates that the linked page no longer exists or was never deployed. Rath
 <img width="1101" height="265" alt="image" src="https://github.com/user-attachments/assets/ec962fb1-b8b0-488b-9fa7-f6c4b938f20f" />
 
 
+Step 3: Enumerate Hidden Directories
 
-
-
-
-<img width="911" height="616" alt="image" src="https://github.com/user-attachments/assets/3f253cfd-0120-4754-858d-6bab8c5cefd0" />
-
-
+Use Gobuster to discover hidden files and directories.
 
  ```gobuster dir -u http://10.49.164.150:8080 -w /usr/share/wordlists/dirb/common.txt```
+ 
+<img width="911" height="616" alt="image" src="https://github.com/user-attachments/assets/3f253cfd-0120-4754-858d-6bab8c5cefd0" />
+
+The scan reveals an exposed .git directory.
+
+This is a critical finding because a publicly accessible Git repository can expose the application's complete source code.
 
 
 
 <img width="911" height="616" alt="image" src="https://github.com/user-attachments/assets/0b618616-960d-40b4-9789-a003df92c4df" />
 
-
-To download all of the files 
+Step 4: Download the Exposed Git Repository
+Recursively download the contents of the exposed repository.
 
 ```wget -r -np -R "index.html*" http://10.49.164.150:8080/.git/```
 
+This retrieves the Git metadata and repository files for offline analysis.
 ---
+
+
+Step 5: Inspect the Repository
+
+Navigate to the downloaded files.
 
 ```
 cd http://10.49.164.150:8080
 
 ls
+
+```
+
+Among the recovered files is a README.md.
+
+Read its contents.
+
+```
 
 cat README.md
 
@@ -82,7 +98,7 @@ cat README.md
 
 <img width="860" height="246" alt="image" src="https://github.com/user-attachments/assets/19ac3608-199e-4e82-8123-becf9f5ecb73" />
 
-
+The README contains the challenge flag.
 
 ---
 
@@ -90,5 +106,21 @@ cat README.md
 ### Today's Itinerary 
 
 1. Dump the exposed source code.
+The website accidentally exposed its .git directory. By downloading the repository, the complete source code became accessible for local analysis.
  
-2. Find the flag.
+3. Find the flag.
+After examining the recovered repository, the README.md file contained the challenge flag.
+
+
+---
+
+Flag: 
+
+
+This challenge demonstrates the risks of exposing a Git repository on a production web server.
+
+Sensitive source code should never be publicly accessible.
+Accidentally deploying the .git directory allows attackers to reconstruct the application's source code.
+Exposed repositories may contain configuration files, credentials, API keys, commit history, and other sensitive information that can lead to further compromise.
+
+The challenge emphasizes the importance of removing development artifacts before deploying applications to production environments.

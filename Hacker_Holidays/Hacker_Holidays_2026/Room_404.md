@@ -30,7 +30,7 @@ This implies that the developer accidentally deployed additional files, most lik
 
 ### Methodology: 
 
-Step 1: Access the Web Application
+#### Step 1: Access the Web Application
 
 Navigate to the target:
 
@@ -41,7 +41,7 @@ The homepage loads successfully and presents a Reserve a Stay button.
 <img width="1095" height="703" alt="image" src="https://github.com/user-attachments/assets/62679a3c-7a6c-43cf-8771-dc041fb50927" />
 
 
-Step 2: Investigate the Broken Link
+#### Step 2: Investigate the Broken Link
 
 Clicking Reserve a Stay returns a 404 Not Found error.
 
@@ -50,7 +50,7 @@ This indicates that the linked page no longer exists or was never deployed. Rath
 <img width="1101" height="265" alt="image" src="https://github.com/user-attachments/assets/ec962fb1-b8b0-488b-9fa7-f6c4b938f20f" />
 
 
-Step 3: Enumerate Hidden Directories
+#### Step 3: Enumerate Hidden Directories
 
 Use Gobuster to discover hidden files and directories.
 
@@ -63,19 +63,14 @@ The scan reveals an exposed .git directory.
 This is a critical finding because a publicly accessible Git repository can expose the application's complete source code.
 
 
-
-<img width="911" height="616" alt="image" src="https://github.com/user-attachments/assets/0b618616-960d-40b4-9789-a003df92c4df" />
-
-Step 4: Download the Exposed Git Repository
+#### Step 4: Download the Exposed Git Repository
 Recursively download the contents of the exposed repository.
 
 ```wget -r -np -R "index.html*" http://10.49.164.150:8080/.git/```
 
 This retrieves the Git metadata and repository files for offline analysis.
----
 
-
-Step 5: Inspect the Repository
+#### Step 5: Inspect the Repository
 
 Navigate to the downloaded files.
 
@@ -102,19 +97,21 @@ The README contains the challenge flag.
 
 ---
 
-
 ### Today's Itinerary 
 
 1. Dump the exposed source code.
+
 The website accidentally exposed its .git directory. By downloading the repository, the complete source code became accessible for local analysis.
  
 3. Find the flag.
+
 After examining the recovered repository, the README.md file contained the challenge flag.
 
 
 ---
 
-Flag: 
+### Flag: 
+THM{byt3_l0tus_n3v3r_f0rg3ts}
 
 
 This challenge demonstrates the risks of exposing a Git repository on a production web server.

@@ -54,11 +54,14 @@ This indicates that the linked page no longer exists or was never deployed. Rath
 
 Use Gobuster to discover hidden files and directories.
 
- ```gobuster dir -u http://10.49.164.150:8080 -w /usr/share/wordlists/dirb/common.txt```
- 
+ ```gobuster dir -u http://10.49.158.82:8080 -w /usr/share/wordlists/dirb/common.txt```
+  
 <img width="911" height="616" alt="image" src="https://github.com/user-attachments/assets/3f253cfd-0120-4754-858d-6bab8c5cefd0" />
 
+
+
 The scan reveals an exposed .git directory.
+
 
 This is a critical finding because a publicly accessible Git repository can expose the application's complete source code.
 
@@ -66,7 +69,7 @@ This is a critical finding because a publicly accessible Git repository can expo
 #### Step 4: Download the Exposed Git Repository
 Recursively download the contents of the exposed repository.
 
-```wget -r -np -R "index.html*" http://10.49.164.150:8080/.git/```
+```wget -r -np -R "index.html*" http://10.49.158.82:8080/.git/```
 
 This retrieves the Git metadata and repository files for offline analysis.
 
@@ -75,11 +78,23 @@ This retrieves the Git metadata and repository files for offline analysis.
 Navigate to the downloaded files.
 
 ```
-cd http://10.49.164.150:8080
+cd http://10.49.158.82:8080
 
 ls
 
 ```
+No file 
+
+<img width="490" height="117" alt="image" src="https://github.com/user-attachments/assets/66971501-d752-44fc-b174-2528699710ae" />
+
+To see the file used 
+
+``` git checkout -- . ```
+
+<img width="485" height="57" alt="image" src="https://github.com/user-attachments/assets/6d47a424-7e08-43b7-9853-ae1b2e38962b" />
+
+<img width="496" height="77" alt="image" src="https://github.com/user-attachments/assets/0efebd5e-d7aa-4e0d-9fd0-3dc04b65400d" />
+
 
 Among the recovered files is a README.md.
 
@@ -90,8 +105,8 @@ Read its contents.
 cat README.md
 
 ```
+<img width="612" height="157" alt="image" src="https://github.com/user-attachments/assets/08f3d72a-2964-4ed2-8889-43744836bfec" />
 
-<img width="860" height="246" alt="image" src="https://github.com/user-attachments/assets/19ac3608-199e-4e82-8123-becf9f5ecb73" />
 
 The README contains the challenge flag.
 

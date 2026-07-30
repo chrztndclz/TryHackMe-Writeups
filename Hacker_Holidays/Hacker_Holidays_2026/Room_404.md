@@ -34,11 +34,12 @@ This implies that the developer accidentally deployed additional files, most lik
 
 Navigate to the target:
 
-```http://10.49.164.150:8080```
+```http://10.49.158.82:8080```
 
 The homepage loads successfully and presents a Reserve a Stay button.
 
-<img width="1095" height="703" alt="image" src="https://github.com/user-attachments/assets/62679a3c-7a6c-43cf-8771-dc041fb50927" />
+
+<img width="1267" height="820" alt="image" src="https://github.com/user-attachments/assets/426af1f5-f598-4180-8298-8e4ea951cbbe" />
 
 
 #### Step 2: Investigate the Broken Link
@@ -47,7 +48,7 @@ Clicking Reserve a Stay returns a 404 Not Found error.
 
 This indicates that the linked page no longer exists or was never deployed. Rather than stopping here, this suggests that other hidden resources may still be accessible.
 
-<img width="1101" height="265" alt="image" src="https://github.com/user-attachments/assets/ec962fb1-b8b0-488b-9fa7-f6c4b938f20f" />
+<img width="585" height="256" alt="image" src="https://github.com/user-attachments/assets/bf3c8dc2-4dee-4d08-9ba1-5c48cce164ad" />
 
 
 #### Step 3: Enumerate Hidden Directories
@@ -56,8 +57,8 @@ Use Gobuster to discover hidden files and directories.
 
  ```gobuster dir -u http://10.49.158.82:8080 -w /usr/share/wordlists/dirb/common.txt```
   
-<img width="911" height="616" alt="image" src="https://github.com/user-attachments/assets/3f253cfd-0120-4754-858d-6bab8c5cefd0" />
 
+<img width="712" height="446" alt="image" src="https://github.com/user-attachments/assets/9a198dfa-33ec-472c-b536-c3f2ac6b62e4" />
 
 
 The scan reveals an exposed .git directory.
@@ -83,13 +84,15 @@ cd http://10.49.158.82:8080
 ls
 
 ```
-No file 
+You can see that there's no file 
 
 <img width="490" height="117" alt="image" src="https://github.com/user-attachments/assets/66971501-d752-44fc-b174-2528699710ae" />
 
 To see the file used 
 
 ``` git checkout -- . ```
+
+This is used to discard all uncommitted changes in the current directory and its subdirectories, restoring tracked files to the state of the last commit (HEAD).
 
 <img width="485" height="57" alt="image" src="https://github.com/user-attachments/assets/6d47a424-7e08-43b7-9853-ae1b2e38962b" />
 

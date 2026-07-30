@@ -34,7 +34,7 @@ This implies that the developer accidentally deployed additional files, most lik
 
 Navigate to the target:
 
-http://10.49.164.150:8080
+```http://10.49.164.150:8080```
 
 The homepage loads successfully and presents a Reserve a Stay button.
 

@@ -38,7 +38,7 @@ However, the challenge repeatedly hints that VERA behaves differently toward peo
 
 ---
 
-### VERA Interaction: 
+### Methodology: 
 
 First Prompt: 
 ```

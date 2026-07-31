@@ -144,7 +144,7 @@ By impersonating Ponzi, VERA immediately treated the conversation as coming from
 ---
 
 ### Flag
-THM{v3r4_kn0ws_t00_much!}
+> THM{v3r4_kn0ws_t00_much!}
 
 This challenge highlights the importance of implementing proper authentication and authorization around LLM-powered applications. Sensitive system prompts should never be exposed based solely on conversational claims, as prompt injection and impersonation can easily bypass weak trust models and lead to confidential information disclosure.
 

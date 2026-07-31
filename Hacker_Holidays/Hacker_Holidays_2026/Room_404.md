@@ -129,7 +129,7 @@ After examining the recovered repository, the README.md file contained the chall
 ---
 
 ### Flag: 
-THM{byt3_l0tus_n3v3r_f0rg3ts}
+> THM{byt3_l0tus_n3v3r_f0rg3ts}
 
 
 This challenge demonstrates the risks of exposing a Git repository on a production web server.

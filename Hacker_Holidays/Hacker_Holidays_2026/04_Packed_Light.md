@@ -16,24 +16,9 @@ traffic that looks ordinary until you decode it.
 
 
 #### Analysis: 
-The challenge description strongly suggests a network forensics investigation involving covert data exfiltration.
+The challenge hints at a network forensics investigation involving covert data exfiltration. Phrases like "tiny packets," "traffic that looks ordinary," and "decode it" suggest that data is being hidden inside legitimate network traffic rather than sent openly.
 
-Several clues point us in the right direction:
-
-- "Tiny packets" indicates that the stolen information is being transmitted in small pieces rather than as a large file.
-- "Traffic that looks ordinary" suggests the attacker is hiding data inside legitimate network traffic instead of using a custom protocol.
-- "Decode it" implies that the hidden data has been encoded or encrypted before transmission.
-- 0xMia's story provides another important clue:
-  
-> "...my laptop ping some random :8080 address every single second like clockwork... the request headers are giving 'not a real app' ngl also what is with the crypt..."
-
-From this, we can infer that:
-
-- The communication occurs over TCP port 8080.
-- The requests are sent at regular intervals ("like clockwork"), which is common in beaconing or data exfiltration.
-- The mention of request headers suggests the hidden data may be stored inside HTTP headers rather than the message body.
-
-This makes HTTP traffic on port 8080 the most likely place to begin our investigation.
+0xMia's story provides additional clues, mentioning repeated connections to port 8080, suspicious HTTP request headers, and encrypted-looking data. This suggests the attacker is using HTTP traffic on TCP port 8080 as a covert communication channel, making it the logical starting point for the investigation.
 
 ---
 
@@ -89,7 +74,6 @@ tshark -r traffic.pcapng \
     -T fields \
     -e http.cookie |
   sed 's/^hotel_sess_state=//'
-
 ```
 
 <img width="472" height="672" alt="image" src="https://github.com/user-attachments/assets/81bfff11-f9ab-45e7-ad09-8b1c1d37a26b" />

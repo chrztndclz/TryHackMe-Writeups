@@ -1,6 +1,8 @@
 # Title: Complimentary
 
-#### Category: Easy
+#### Category: Cloud
+
+#### Difficulty: Easy
 
 #### Description: 
 Install the free app and it hands your phone a set of cloud keys, the same set it hands everyone. They're read-only, but read-

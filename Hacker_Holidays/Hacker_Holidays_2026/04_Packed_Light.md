@@ -1,6 +1,8 @@
 # Title: Packed Light
 
-#### Category: Easy
+#### Category: Forensics
+
+#### Difficulty: Easy
 
 #### Description: 
 Tiny packets. Odd hours. Suspiciously regular. Someone's smuggling out the data equivalent of a hotel towel every night, folded neatly inside

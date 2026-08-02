@@ -75,63 +75,67 @@ After downloading the report, I reviewed the results.
 
 <img width="976" height="473" alt="image" src="https://github.com/user-attachments/assets/5765b459-e445-4878-b029-1d246a4a449f" />
 
-We can see that there's a website included named "gravatar.com" 
-
 <img width="957" height="575" alt="image" src="https://github.com/user-attachments/assets/7282499a-583d-4b37-9d94-4bcf314f18d8" />
 
 <img width="967" height="588" alt="image" src="https://github.com/user-attachments/assets/f1bf6367-c8cf-42e3-8bb7-0725b424a6c1" />
 
 <img width="961" height="234" alt="image" src="https://github.com/user-attachments/assets/a8ff4b6c-fcf6-4cbc-bbc1-2aaa1a93c25a" />
 
-We can't see his profile in gravatar because we need to subscribe
+Among the linked services, one immediately stood out:
+> gravatar.com
+
+This matches the clue from the conversation:
+> "Started with a G..."
+
+Gravatar is a free service that lets users upload a profile picture and associate it with their email across many websites, making it a strong candidate for the hidden profile.
 
 
-Let's visit the gravatar.com and inspect 
+#### Step 4: locate the Hidden Profile
 
-Upon reviewing we got to know that we can search profile in gravatar using emails. Besides its functionality that we can uploade profile pic to every website we registered on, etc. 
+Instead of relying solely on Epieos, I visited Gravatar directly to verify the finding.
 
-Navigate to Gravatar.com/site/check paste the Email of lambo
+I navigated to:
+> gravatar.com/site/check
+and searched using Lambo's email address.
 
 <img width="1119" height="810" alt="image" src="https://github.com/user-attachments/assets/67e6062a-d01c-4a30-a682-10f3fe44060c" />
 
-Navigate his profile URL 
+The search successfully returned a Gravatar profile linked to the email.
+
+I opened the profile.
 
 <img width="738" height="572" alt="image" src="https://github.com/user-attachments/assets/3abe2198-0a86-4d4c-97d2-e81ee63d0f12" />
 
-We know find the secret profile we are looking for. 
+Inside the profile, I found the hidden information needed for the challenge.
 
-Copy the base64 string and paste in cybechef
+One of the profile fields contained a Base64-encoded string.
+
+I copied the encoded value and opened CyberChef.
 
 <img width="1104" height="536" alt="image" src="https://github.com/user-attachments/assets/24c749f6-9010-4aec-9043-5cc706db75d3" />
 
-Retrieve the flag. 
+Using the From Base64 recipe, I decoded the string and successfully recovered the flag. 
 
 ---
-
-We need more powerful OSINT tool 
-
-Holehe
-Ghunt
-
-
-
-
-
----
-
 
 ### Today's Itinerary 
 
 1. Analyze the provided conversation for Identifying details
+> I carefully examined the conversation and extracted valuable information, including the participants, Lambo's email address, and the clue that the hidden profile was hosted on a service starting with the letter "G".
 
 2. Extract the relevant clues
+> The most valuable clue was: lambobytelotushotel@gmail.com
+This email became the starting point for the OSINT investigation.
 
-3. Locate the hidden account
+4. Locate the hidden account
+> Using the email address with OSINT tools, I discovered that it was linked to a Gravatar profile. After inspecting the profile and decoding the Base64 string it contained, I successfully recovered the flag.
 
-4. Submit the flag
-
+5. Submit the flag
+> THM{S3creT_Pr0fil3_H4s_b33n_Ident1fi3d}
 
 ---
 
 ### Flag: 
 > THM{S3creT_Pr0fil3_H4s_b33n_Ident1fi3d}
+
+This challenge demonstrates how a small amount of publicly available information can reveal much more than intended. A casual conversation exposed an email address and a subtle hint about a profile-sharing service, which was enough to pivot into an OSINT investigation. By correlating information from the conversation with publicly accessible resources like Gravatar, I was able to locate a hidden profile and recover the flag. It highlights the importance of limiting the personal information shared online, as even seemingly harmless details can be combined to build a much larger picture.

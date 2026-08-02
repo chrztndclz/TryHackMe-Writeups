@@ -217,7 +217,7 @@ I successfully retrieved the root flag.
 After gaining shell access through the vulnerable YAML import, I searched the filesystem and found the user flag in:
 > /home/bartender/user.txt
 
-3. Find the root flag
+2. Find the root flag
 I analyzed the jukeboxd.py script and discovered that the service required a --stream-pass argument. By inspecting the systemd service configuration with systemctl show, I recovered the password, authenticated as root, and retrieved the root flag.
 
 ---

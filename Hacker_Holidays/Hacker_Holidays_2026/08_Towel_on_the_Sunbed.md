@@ -44,6 +44,9 @@ Open Burp Suite and access the website
 
 Create an account by clicking the register 
 
+<img width="1861" height="825" alt="image" src="https://github.com/user-attachments/assets/e3d5f80b-1181-48c0-a8c4-e2d7205ce541" />
+
+
 
 
 

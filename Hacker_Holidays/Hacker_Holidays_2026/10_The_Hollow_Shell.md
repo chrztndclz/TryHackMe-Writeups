@@ -24,44 +24,42 @@ This is just basically a reverse shell
 
 ### Methodology
 
-At the end create a summary attack flow on what did we do in bullets (do this to other also) 
+(At the end create a summary attack flow on what did we do in bullets (do this to other also))
 
 
 
-
-Zip Slip is a form of directory traversal vulnerability 
-
-
-do an nmap scan 
+Do an nmap scan 
 Command:
 ```nmap -Pn -sC -sV 10.130.190.24```
-
-
-
-
-This gives you open port 
-Expected output: 
+This gives you open port, expected output: 
 ```
   22/tcp    SSH
   5000/tcp  HTTP 
 ```
 
 
-
 Access the website 
-Victim_Ip:5000
-Inspect > Check net
-work tab 
-This gives you a user and pass 
-If we also check there's an existing folder named static
-> Log in
-Expected output: 
-```
-http://10.130.190.24:5000
+VICTIM_IP
+<img width="1447" height="780" alt="image" src="https://github.com/user-attachments/assets/6b909bca-dd88-41c5-b823-86ca84ac0e5d" />
+The website is not accessible we need to specify its port
 
+
+VICTIM_IP:5000
+<img width="1349" height="926" alt="image" src="https://github.com/user-attachments/assets/3a36fde4-4953-47eb-a68f-2a0489852266" />
+This means this website must be specific to port 5000
+
+
+Inspect the website
+This gives you a user and pass, If we also check there's an existing folder named static
+Credentials:
+```
   user: concierge
   pass: StayNoticed2024!
 ```
+> Log in
+<img width="1592" height="654" alt="image" src="https://github.com/user-attachments/assets/2354351c-b1b1-468c-b069-a73354311c52" />
+
+
 
 
 

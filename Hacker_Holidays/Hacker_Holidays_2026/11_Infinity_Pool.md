@@ -389,11 +389,11 @@ Root access confirmed. Navigate to root.txt:
 ### Today's Itinerary
 
 1. Find the user flag
-> 
+> Exploit command injection in the ping utility to gain a foothold as the `web` user, then retrieve the flag from their home directory.
 
 
 2. Find the root flag
-> 
+> Pivot through the internal Watchtower service to leak FreePBX credentials, exploit CVE-2026-46376 to reach the UCP automation key, and use it to escalate to root.
 
 ---
 
@@ -414,6 +414,41 @@ Attack Kill Chain:
 14. SSH in as root and retrieve the root flag
 
 ---
+
+### Attack Kill Chain (MITRE ATT&CK Mapped)
+
+**Phase 1 — Reconnaissance & Initial Access**
+| Step | Action | ATT&CK Tactic |
+|---|---|---|
+| 1 | Enumerated the target website and discovered exposed `app.js` revealing hidden endpoints | Reconnaissance (TA0043) |
+| 2 | Identified a ping utility at `/status` accepting user input | Reconnaissance (TA0043) |
+| 3 | Exploited unsanitized input to achieve OS command injection | Initial Access (TA0001) — T1190 (Exploit Public-Facing Application) |
+
+**Phase 2 — Execution & Persistence**
+| Step | Action | ATT&CK Tactic |
+|---|---|---|
+| 4 | Used command injection to enumerate the `web` user's home directory and locate the user flag | Discovery (TA0007) |
+| 5 | Generated an SSH keypair and injected the public key via command injection to establish persistent access | Persistence (TA0003) — T1098.004 (SSH Authorized Keys) |
+| 6 | Authenticated over SSH as `web` and retrieved the user flag | Execution (TA0002) |
+
+**Phase 3 — Privilege Escalation & Credential Access**
+| Step | Action | ATT&CK Tactic |
+|---|---|---|
+| 7 | Enumerated running processes and identified a root-owned Watchtower service via `ps auxww` | Discovery (TA0007) — T1057 (Process Discovery) |
+| 8 | Reviewed systemd service configuration to map Watchtower's internal architecture | Discovery (TA0007) — T1007 |
+| 9 | Queried Watchtower's internal API and extracted hard-coded FreePBX UCP credentials | Credential Access (TA0006) — T1552.001 (Credentials in Files) |
+| 10 | Confirmed target was vulnerable to CVE-2026-46376 (FreePBX hard-coded template credentials) via version enumeration | Discovery (TA0007) |
+
+**Phase 4 — Lateral Movement & Privilege Escalation to Root**
+| Step | Action | ATT&CK Tactic |
+|---|---|---|
+| 11 | Pivoted to the loopback-only FreePBX UCP portal via SSH port forwarding | Lateral Movement (TA0008) — T1090 (Proxy) |
+| 12 | Authenticated to UCP using leaked credentials and retrieved an internal automation API key | Credential Access (TA0006) |
+| 13 | Abused the automation endpoint to inject an SSH key into `/root/.ssh/authorized_keys` | Privilege Escalation (TA0004) — T1098.004 |
+| 14 | Authenticated as root via SSH and retrieved the root flag | Privilege Escalation (TA0004) |
+
+
+
 
 ### Flag
 User Flag: 

@@ -92,7 +92,7 @@ Search specifically for PowerShell
 It will result to a base64 string 
 Decode
 
-```echo <string> | base64 -d ```
+```echo <base64_string> | base64 -d ```
 
 <img width="1398" height="346" alt="image" src="https://github.com/user-attachments/assets/d77fbb51-ffd9-4961-802e-b33c5c46dc14" />
 
@@ -108,36 +108,46 @@ ROOT\cimv2:Win32_HardwareTelemetry.ConfigData
 
 
 Let's find the Stored ConfigData 
+
 ```grep -C 3 'Win32_HardwareTelemetry' *.txt```
 
-It is base64-encoded, Deflate-compressed, and loaded directly into memory string
-
-
-
-
-
-
-
-We can se a "MZ" is a PE32 I think it's a kind of a payload? 
-Save the result into a .exe file name payload 
 
 <img width="1398" height="214" alt="image" src="https://github.com/user-attachments/assets/95a407ee-8f76-4d9d-adb7-ef3eb7a18f51" />
 
+It is base64-encoded, Deflate-compressed, and loaded directly into memory string
+
+Put this in .txt file 
+
+```echo <base64_string> > output.txt```
+
+Now since it's encoded in base64 and deflate compressed we need to decode and inflate it 
+
+```base64 -d output.txt | python3 -c 'import sys,zlib; sys.stdout.buffer.write(zlib.decompress(sys.stdin.buffer.read(), -15))' > output.bin```
+
+Let's now check this bin file if we successfully did it
+
+```xxd -l 32 output.bin```
+
+We can se a "MZ" is a PE32 I think it's a kind of a payload? 
+
+Now let's convert this bin file to a .exe file 
+
+mv output.bin > output.exe
+
+
 <img width="1400" height="289" alt="image" src="https://github.com/user-attachments/assets/444a3f6f-41c2-496f-8b39-19727259dbec" />
 
+Let's now out ILSpy and add the output.exe file  
 
+Navigate the file in ILSpy
+> Output
+  > AfterHours
+    > Program
 
-Open ILSpy and add the payload.exe file 
-
-Navigate Payload in ILSpy
-> AfterHours
-  > Program
+<img width="1399" height="608" alt="image" src="https://github.com/user-attachments/assets/592c8114-01c7-495b-a8d8-48e1405f7d7f" />
 
 Load it and the flag is there in a base64 format
 
-
-
-<img width="1399" height="608" alt="image" src="https://github.com/user-attachments/assets/592c8114-01c7-495b-a8d8-48e1405f7d7f" />
 
 
 

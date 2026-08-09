@@ -96,16 +96,12 @@ Decode
 
 <img width="1398" height="346" alt="image" src="https://github.com/user-attachments/assets/d77fbb51-ffd9-4961-802e-b33c5c46dc14" />
 
-
-It is base64-encoded, Deflate-compressed, and loaded directly into memory 
-
 This is an interesting line 
 > ([WmiClass]'ROOT\cimv2:Win32_HardwareTelemetry').Properties['ConfigData'].Value;
-What this means? The Data is in that path
 
 ROOT\cimv2:Win32_HardwareTelemetry.ConfigData
 
-
+This tells us that it is base64-encoded, Deflate-compressed, and loaded directly into memory 
 
 Let's find the Stored ConfigData 
 
@@ -132,10 +128,8 @@ We can se a "MZ" is a PE32 I think it's a kind of a payload?
 
 Now let's convert this bin file to a .exe file 
 
-mv output.bin > output.exe
+```mv output.bin > output.exe```
 
-
-<img width="1400" height="289" alt="image" src="https://github.com/user-attachments/assets/444a3f6f-41c2-496f-8b39-19727259dbec" />
 
 Let's now out ILSpy and add the output.exe file  
 
@@ -152,16 +146,20 @@ Load it and the flag is there in a base64 format
 Decode this 
 <img width="504" height="66" alt="image" src="https://github.com/user-attachments/assets/374b04fc-edbf-4ed2-acd7-53c4d26361f6" />
 
-
-
+Retrieve the flag
 
 ---
 
 ### Today's Itinerary
 
-1. Pull apart what the kiosk hands out for free before you've even clicked anything.
+1. Parse the provided system artifacts for hidden custom configuration data
 > 
 
+2. Locate the malicious class and extract its embedded payload
+>
+
+3. Decode the payload and submit the recovered flag
+>
 
 ---
 

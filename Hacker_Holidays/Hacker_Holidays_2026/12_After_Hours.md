@@ -1,4 +1,4 @@
-# Title: After Hours
+<img width="1399" height="608" alt="image" src="https://github.com/user-attachments/assets/af8dfb38-0e37-446a-87f3-fc2b51713d83" /># Title: After Hours
 
 #### Category: Forensics
 
@@ -23,11 +23,52 @@ Analysis:
 
 ### Methodology
 
-Download task files 
+Navigate
+> /root/Rooms/hacker-holidays-2026/after-hours
 
-Unzip Files 
+Unzip Files
+```7z x after-hours.7z```
+> password: Aft3rH0ursAtt4chm3ntP4ss
 
-Go to challenge attachments 
+Go to the unzip folder
+
+<img width="768" height="611" alt="image" src="https://github.com/user-attachments/assets/ca9bc9af-7f43-42ae-abe3-1f9868987aae" />
+
+Navigate tools directory
+```cd tools```
+Open instruction.txt
+```cat instruction.txt```
+
+<img width="941" height="157" alt="image" src="https://github.com/user-attachments/assets/e19cba0f-4899-473d-88c2-46e53522501c" />
+
+Unzip ILSpy
+``` unzip ILSpy-linux-x64-Release.zip```
+
+Navigate Artificats
+```cd artificats```
+
+Navigate linux-64
+```cd linux-64```
+
+Modify permission make it executable
+``` chmod +x ILSpy```
+
+Run the tool
+``` ./ILSpy```
+
+You'll see that the ILSpy is already running
+
+<img width="600" height="466" alt="image" src="https://github.com/user-attachments/assets/1a7127e2-ba58-4106-abb7-82ba737f68f1" />
+
+
+
+
+Navigate the challenge attachments
+
+<img width="947" height="113" alt="image" src="https://github.com/user-attachments/assets/36f1515e-c3c8-40a8-8aa5-98464abb4791" />
+
+
+Challenge attachments:
 INDEX.BTR 
 > B - tree index used to locate records in OBJECTS.DATA
 MAPPING1.MAP
@@ -43,39 +84,19 @@ Event Filter
 Event Consumer
 Filter To Consumer Binding 
 
----------------------------------------------
-
-Extract ASCII text
-```strings -a OBJECTS.DATA > strings-ascii.txt```
-
-Extract UTF-16 text
-```strings -a -el OBJECTS.DATA > strings-utf16.txt```
-
-Search specifically for PowerShell
-```grep - i powershell *.txt```
- 
-Search for many suspicious keywords
-```
-rg -i '__EventFilter|FilterToConsumerBinding|CommandLineEventConsumer|ActiveScriptEventConsumer|CommandLineTemplate|ScriptText|powershell|cmd\.exe|wscript|cscript|base64|https?://' strings-*.txt
-```
-
-```
-grep -ie -i '__EventFilter|FilterToConsumerBinding|CommandLineEventConsumer|ActiveScriptEventConsumer|CommandLineTemplate|ScriptText|powershell|cmd\.exe|wscript|cscript|base64|https?://' strings-*.txt
-```
-
----------------------------------------------
 
 
 Search specifically for PowerShell
 ```grep - i powershell *.txt```
 
-Save the result into a file 
+It will result to a base64 string 
+Decode
 
-Copy the result and go to cyberchef 
-> From Base64
-> Remove null bytes
+```base64 -d <String>```
 
-Analyze the result
+
+<img width="1398" height="346" alt="image" src="https://github.com/user-attachments/assets/d77fbb51-ffd9-4961-802e-b33c5c46dc14" />
+
 
 
 It is base64-encoded, Deflate-compressed, and loaded directly into memory 
@@ -96,6 +117,10 @@ Copy the result and put it in the Cyberchef
 We can se a "MZ" is a PE32 I think it's a kind of a payload? 
 Save the result into a .exe file name payload 
 
+<img width="1398" height="214" alt="image" src="https://github.com/user-attachments/assets/95a407ee-8f76-4d9d-adb7-ef3eb7a18f51" />
+
+<img width="1400" height="289" alt="image" src="https://github.com/user-attachments/assets/444a3f6f-41c2-496f-8b39-19727259dbec" />
+
 
 
 Open ILSpy and add the payload.exe file 
@@ -108,8 +133,7 @@ Load it and the flag is there in a base64 format
 
 
 
-
-
+<img width="1399" height="608" alt="image" src="https://github.com/user-attachments/assets/592c8114-01c7-495b-a8d8-48e1405f7d7f" />
 
 
 

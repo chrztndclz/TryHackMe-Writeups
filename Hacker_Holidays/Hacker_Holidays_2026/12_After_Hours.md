@@ -92,11 +92,9 @@ Search specifically for PowerShell
 It will result to a base64 string 
 Decode
 
-```base64 -d <String>```
-
+```echo <string> | base64 -d ```
 
 <img width="1398" height="346" alt="image" src="https://github.com/user-attachments/assets/d77fbb51-ffd9-4961-802e-b33c5c46dc14" />
-
 
 
 It is base64-encoded, Deflate-compressed, and loaded directly into memory 
@@ -107,12 +105,18 @@ What this means? The Data is in that path
 
 ROOT\cimv2:Win32_HardwareTelemetry.ConfigData
 
+
+
 Let's find the Stored ConfigData 
 ```grep -C 3 'Win32_HardwareTelemetry' *.txt```
 
-Copy the result and put it in the Cyberchef 
-> From Base64
-> Raw Inflate
+It is base64-encoded, Deflate-compressed, and loaded directly into memory string
+
+
+
+
+
+
 
 We can se a "MZ" is a PE32 I think it's a kind of a payload? 
 Save the result into a .exe file name payload 

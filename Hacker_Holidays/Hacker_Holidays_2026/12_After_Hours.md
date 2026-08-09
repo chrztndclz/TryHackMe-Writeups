@@ -1,4 +1,4 @@
-<img width="1399" height="608" alt="image" src="https://github.com/user-attachments/assets/af8dfb38-0e37-446a-87f3-fc2b51713d83" /># Title: After Hours
+# Title: After Hours
 
 #### Category: Forensics
 
@@ -147,8 +147,10 @@ Navigate the file in ILSpy
 <img width="1399" height="608" alt="image" src="https://github.com/user-attachments/assets/592c8114-01c7-495b-a8d8-48e1405f7d7f" />
 
 Load it and the flag is there in a base64 format
+> VEhNe1A0dGNoX29wM25lZF90aDNfQmFjS2QwMHJ9
 
-
+Decode this 
+<img width="504" height="66" alt="image" src="https://github.com/user-attachments/assets/374b04fc-edbf-4ed2-acd7-53c4d26361f6" />
 
 
 
@@ -164,5 +166,5 @@ Load it and the flag is there in a base64 format
 ---
 
 ### Flag
-> THM{}
+> THM{P4Ch_op3nEd_tH3_BacKd00x}
 

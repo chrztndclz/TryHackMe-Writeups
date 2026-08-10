@@ -2,7 +2,7 @@
 
 #### Category: Forensics
 
-#### Difficulty: Medium
+#### Difficulty: Hard
 
 #### Description: 
 

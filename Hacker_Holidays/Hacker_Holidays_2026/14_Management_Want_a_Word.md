@@ -1,4 +1,4 @@
-<img width="399" height="463" alt="image" src="https://github.com/user-attachments/assets/cf7b742a-1792-407d-91af-79105d528af9" /># Title: Management Wants a Word
+# Title: Management Wants a Word
 
 #### Category: Forensics
 

@@ -215,7 +215,7 @@ After decoding the required Base64 layers, I recovered the flag.
 ---
 
 ### Flag
-> THM{c4r0l_t00k_th3_f4ll}
+> THM{c4r0l---f4ll}
 
 This challenge demonstrates how prompt injection can become dangerous when an AI system is allowed to interpret user-controlled text as executable instructions.
 

@@ -631,7 +631,7 @@ This leaves the encrypted container closed instead of leaving the mapped filesys
 ---
 
 ### Flag
-> THM{1t_w4s_V3r4_A11_Al0ng?!}
+> THM{1t---l0ng?!}
 
 This challenge demonstrated how forensic investigations often require connecting small pieces of evidence rather than finding the flag directly.
 

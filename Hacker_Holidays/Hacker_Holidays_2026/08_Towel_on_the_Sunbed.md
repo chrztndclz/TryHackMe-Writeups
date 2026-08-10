@@ -117,7 +117,7 @@ Retrieve the flag.
 
 ### Flag
 
-> THM{t0w3l_0n_th3_sunb3d_d0ubl3_sp3nt}
+> THM{t0w3l---sp3nt}
 
 This challenge demonstrates a Race Condition vulnerability caused by improper handling of concurrent requests. Although the application intended to limit users to a single daily reward, it failed to perform the validation and account update atomically. By sending multiple requests in parallel, I was able to claim the reward several times before the server recorded the first claim, allowing my account to reach the Whale tier and unlock the protected vault. The challenge highlights the importance of implementing proper synchronization and transaction handling when processing sensitive operations such as reward claims, purchases, or financial transactions.
 

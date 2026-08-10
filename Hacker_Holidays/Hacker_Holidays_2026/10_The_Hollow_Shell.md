@@ -323,7 +323,7 @@ In this challenge, the command successfully prints the flag.
 ---
 
 ### Flag
-> THM{z1p_sl1pp3d_1nt0_a_sh3ll}
+> THM{z1p---sh3ll}
 
 
 This challenge demonstrates how an insecure file extraction process can lead to remote code execution. Although the application validates that uploaded archives contain a shell.json file, it fails to sanitize file paths during extraction. By abusing this Zip Slip vulnerability, I escaped the intended upload directory, wrote a malicious Python script into the application's hooks directory, and leveraged the application's own automation mechanism to execute it. This ultimately provided a reverse shell, allowing me to access the system and retrieve the flag.

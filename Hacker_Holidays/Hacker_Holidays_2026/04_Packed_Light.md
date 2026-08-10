@@ -136,7 +136,7 @@ Recipe:
 ---
 
 ### Flag: 
-> thm{V3r4_1s_w4tch1ng_0veR_y0u}
+> thm{V3r4---y0u}
 
 This challenge demonstrates how attackers can hide sensitive information inside legitimate-looking network traffic. Instead of creating a custom protocol, the attacker embedded encoded data within standard HTTP Cookie headers, allowing the traffic to blend in with normal web requests.
 

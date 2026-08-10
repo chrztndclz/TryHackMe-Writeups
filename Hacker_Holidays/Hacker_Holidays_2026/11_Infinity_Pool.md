@@ -452,10 +452,10 @@ Attack Kill Chain:
 
 ### Flag
 User Flag: 
-> THM{n0_v1s1bl3_3dg3}
+> THM{n0---3dg3}
 
 Root Flag: 
-> THM{tr4c3d_t0_th3_h0r1z0n}
+> THM{tr4c3---1z0n}
 
 This box chained three separate weaknesses into a full compromise: a command injection bug in a public-facing ping utility, an internal Watchtower service that leaked hard-coded FreePBX credentials through its config endpoint, and a FreePBX UCP instance still running on default template credentials (CVE-2026-46376). None of these issues were exploitable in isolation from the outside — it was the pivot through each internal, loopback-only service that turned a low-privilege web shell into full root access.
 

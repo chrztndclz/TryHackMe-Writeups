@@ -236,7 +236,7 @@ This returned the flag.
 ---
 
 ### Flag
-> THM{P4tch_op3ned_th3_BacKd00r}
+> THM{P4tch---d00r}
 
 This challenge demonstrated how WMI can be used as a persistence mechanism and how forensic analysis can uncover malicious data hidden inside the WMI repository.
 

@@ -224,9 +224,9 @@ I analyzed the jukeboxd.py script and discovered that the service required a --s
 
 ### Flag: 
 User Flag:
-> THM{y4ml_pl4yl1st_pwns_th3_b34ch}
+> THM{y4ml---b34ch}
 Root Flag:
-> THM{cr3d3nt14l_r3us3_4t_th3_b34ch_b4r}
+> THM{cr3d---b4r}
 
 This challenge demonstrates two common security issues that frequently appear in real-world environments. The first is unsafe YAML deserialization, where importing an untrusted YAML file allowed arbitrary system commands to be executed, resulting in a reverse shell. The second is credential exposure through service configuration. By reviewing the application source code, I identified that the service required a --stream-pass argument. Inspecting the systemd configuration revealed the password in plaintext, which allowed me to authenticate as the root user and complete the privilege escalation.
 

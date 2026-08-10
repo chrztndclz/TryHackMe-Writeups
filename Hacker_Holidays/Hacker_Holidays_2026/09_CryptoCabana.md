@@ -415,6 +415,6 @@ Combine all three shards to recover the complete flag.
 ---
 
 ### Flag
-> THM{n0t_ur_k3ys_n0t_ur_c01ns!}
+> THM{n0t---c01ns!}
 
 This challenge demonstrates how exposing cloud credentials on the client side can lead to a complete compromise of cloud resources. The leaked Azure SAS token allowed enumeration of storage containers and access to sensitive backup files. Among those files was a Service Principal configuration containing privileged credentials, which granted access to Azure Key Vault. Even though one of the secrets had been rotated, Azure's built-in version history allowed recovery of the previous value, enabling reconstruction of the full flag. The challenge highlights the importance of protecting cloud credentials, limiting SAS permissions, and carefully managing sensitive data stored in cloud services.

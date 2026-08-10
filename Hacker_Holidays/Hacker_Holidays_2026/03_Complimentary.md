@@ -259,7 +259,7 @@ One of the guest records also contains the challenge flag inside the notes field
 ---
 
 ### Flag: 
-> THM{fr33_app_fr33_d4t4!}
+> THM{fr33---4t4!}
 
 This challenge demonstrates several common cloud security misconfigurations.
 

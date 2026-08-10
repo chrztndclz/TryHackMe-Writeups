@@ -131,11 +131,11 @@ This email became the starting point for the OSINT investigation.
 > Using the email address with OSINT tools, I discovered that it was linked to a Gravatar profile. After inspecting the profile and decoding the Base64 string it contained, I successfully recovered the flag.
 
 5. Submit the flag
-> THM{S3creT_Pr0fil3_H4s_b33n_Ident1fi3d}
+> THM{S3cre---fi3d}
 
 ---
 
 ### Flag: 
-> THM{S3creT_Pr0fil3_H4s_b33n_Ident1fi3d}
+> THM{S3cre---fi3d}
 
 This challenge demonstrates how a small amount of publicly available information can reveal much more than intended. A casual conversation exposed an email address and a subtle hint about a profile-sharing service, which was enough to pivot into an OSINT investigation. By correlating information from the conversation with publicly accessible resources like Gravatar, I was able to locate a hidden profile and recover the flag. It highlights the importance of limiting the personal information shared online, as even seemingly harmless details can be combined to build a much larger picture.

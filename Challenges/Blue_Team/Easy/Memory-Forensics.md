@@ -189,13 +189,136 @@ To complete your forensic timeline, you should also have a look at what other in
 
 
 
-Question -  When was the machine last shutdown?
+Question:
+
+When was the machine last shutdown?
+
+What did John write?
 
 ---
 
+1. "When was the machine last shutdown?"
+
+For a Windows memory image, I'd investigate the system shutdown timestamp first.
+
+A useful Volatility plugin is:
+
+python3 ~/Downloads/volatility3/vol.py \
+-f ~/Downloads/Snapshot19_1609159453792.vmem \
+windows.registry.hivelist
+
+This helps locate the Windows registry hives in memory.
+
+<img width="721" height="298" alt="image" src="https://github.com/user-attachments/assets/76a2e978-dfb1-476d-9f25-8d28f54fa36b" />
+
+The important line for the shutdown investigation is:
+
+0xf8a000024010    \REGISTRY\MACHINE\SYSTEM
+
+We have the SYSTEM registry hive in memory.
+
+And:
+
+\??\C:\Users\John\ntuser.dat
+
+is John's user registry hive, which could become useful when investigating what John did.
+
+
+For the shutdown question
+
+Now that we know the SYSTEM hive exists, let's extract it.
+
+```
+python3 ~/Downloads/volatility3/vol.py \
+-f ~/Downloads/Snapshot19_1609159453792.vmem \
+windows.registry.printkey \
+--offset 0xf8a000024010 \
+--key "ControlSet001\Control\Windows"
+```
+
+"Take the SYSTEM registry hive we found in memory, then navigate through the registry to ControlSet001 → Control → Windows and show me the values stored there."
+
+<img width="1338" height="297" alt="image" src="https://github.com/user-attachments/assets/74656fa4-708f-4ba4-a74c-6675e1ecc29b" />
+
+This gives us the ShutdownTime
+
+Answer: 
+> 2020-12-27 22:50:12
+
+
+Let's now proceed to answering the next question 
+
+Since the clue says John had a command prompt open, our target is the cmd.exe process and its console history.
+
+Step 1 — Find cmd.exe
+
+```
+python3 ~/Downloads/volatility3/vol.py \
+-f ~/Downloads/Snapshot19_1609159453792.vmem \
+windows.pslist
+```
+
+<img width="1057" height="799" alt="image" src="https://github.com/user-attachments/assets/78fb6833-db59-4a78-b2bd-d0192ca9cc2c" />
+
+Great. We found the exact cmd.exe process:
+
+PID   PPID   ImageFileName
+1920  1144   cmd.exe
+
+Let's check the command line
+
+```
+python3 ~/Downloads/volatility3/vol.py \
+-f ~/Downloads/Snapshot19_1609159453792.vmem \
+windows.cmdline
+```
+
+<img width="853" height="853" alt="image" src="https://github.com/user-attachments/assets/6bc65250-35dc-4ced-a4c0-1e22051b3c8a" />
+
+Right — this output confirms what we already suspected, so we don't need to run windows.cmdline again.
+
+That tells us how CMD was launched, not what John typed.
 
 
 
+Let's try 
+```
+python3 ~/Downloads/volatility3/vol.py \
+-f ~/Downloads/Snapshot19_1609159453792.vmem \
+windows.consoles
+```
+
+If the console artifacts survived in the memory dump, this may expose the commands that were entered into cmd.exe.
+
+Your memory image appears to be from Windows 7 / Windows Server 2008 R2-era Windows, and your installed Volatility 3.28.2 windows.consoles plugin doesn't support the specific conhost.exe version in this image.
+
+---
+
+Let's now use the strings method, but we'll make it targeted.
+
+Create unicode strings 
+
+```
+strings -el ~/Downloads/Snapshot19_1609159453792.vmem > ~/Downloads/john_unicode.txt
+```
+
+Find every occurrence of John's prompt
+
+```
+grep -in 'C:\\Users\\John>' ~/Downloads/john_unicode.txt
+```
+
+<img width="1855" height="223" alt="image" src="https://github.com/user-attachments/assets/1ea689c9-49c5-40cb-a136-cfce57d5b1e5" />
 
 
+Search specifically for commands after the prompt
 
+
+```
+grep -in -E 'C:\\Users\\John>.*echo|echo.*\.txt|C:\\Users\\John>.*>' ~/Downloads/john_unicode.txt
+```
+
+<img width="815" height="83" alt="image" src="https://github.com/user-attachments/assets/6373f13b-8e09-4e37-b14f-8548a8afd7d0" />
+
+Answer:
+> You_found_me

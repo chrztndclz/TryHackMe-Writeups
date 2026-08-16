@@ -103,6 +103,8 @@ NT Hash	47fbd6536d7868c873d5ea455f2fc0c9
 The NT hash is the important value:
 > 47fbd6536d7868c873d5ea455f2fc0c9
 
+The LM hash is not useful because it is disabled/empty in this case, while the NT hash contains the actual NTLM credential hash associated with the Windows account. Therefore, the NT hash is the value we extract for password cracking.
+
 However, this is not John's actual password
 
 It's a one-way hash derived from the password. We need to determine the plaintext password from this hash.

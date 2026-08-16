@@ -174,3 +174,28 @@ charmander999
 Overall, the basic memory forensics process was:
 
 Memory dump → Identify the system → Find relevant artifacts → Extract credentials/hashes → Analyze or crack the data → Recover the required information.
+
+
+---
+
+## Task 3: Analysis
+
+On arrival a picture was taken of the suspect's machine, on it, you could see that John had a command prompt window open. The picture wasn't very clear, sadly, and you could not see what John was doing in the command prompt window.
+
+To complete your forensic timeline, you should also have a look at what other information you can find, when was the last time John turned off his computer?
+
+
+<img width="684" height="349" alt="image" src="https://github.com/user-attachments/assets/51074918-7ac3-4f9f-be4b-188a36094f30" />
+
+
+
+Question -  When was the machine last shutdown?
+
+---
+
+
+
+
+
+
+

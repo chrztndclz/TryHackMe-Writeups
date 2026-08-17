@@ -1,4 +1,4 @@
-<img width="662" height="551" alt="image" src="https://github.com/user-attachments/assets/964cb656-bc87-4468-b1ed-f27297ebc390" /># Title: Memory Forensics
+# Title: Memory Forensics
 
 #### Category: 
 

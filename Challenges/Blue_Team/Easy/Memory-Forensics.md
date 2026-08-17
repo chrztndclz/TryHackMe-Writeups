@@ -184,10 +184,7 @@ On arrival a picture was taken of the suspect's machine, on it, you could see th
 
 To complete your forensic timeline, you should also have a look at what other information you can find, when was the last time John turned off his computer?
 
-
 <img width="684" height="349" alt="image" src="https://github.com/user-attachments/assets/51074918-7ac3-4f9f-be4b-188a36094f30" />
-
-
 
 Question:
 
@@ -197,36 +194,42 @@ What did John write?
 
 ---
 
-1. "When was the machine last shutdown?"
 
-For a Windows memory image, I'd investigate the system shutdown timestamp first.
+### 1. When was the machine last shut down?
 
-A useful Volatility plugin is:
+For a Windows memory image, one thing we can investigate is the system's shutdown timestamp.
 
+A useful starting point is the Windows registry. Let's use Volatility's windows.registry.hivelist plugin to locate the registry hives in memory.
+
+```
 python3 ~/Downloads/volatility3/vol.py \
 -f ~/Downloads/Snapshot19_1609159453792.vmem \
 windows.registry.hivelist
+```
 
 This helps locate the Windows registry hives in memory.
 
 <img width="721" height="298" alt="image" src="https://github.com/user-attachments/assets/76a2e978-dfb1-476d-9f25-8d28f54fa36b" />
 
-The important line for the shutdown investigation is:
+What did we find?
 
-0xf8a000024010    \REGISTRY\MACHINE\SYSTEM
+The important entry for our shutdown investigation is:
 
-We have the SYSTEM registry hive in memory.
+> 0xf8a000024010    \REGISTRY\MACHINE\SYSTEM
 
-And:
+This tells us that the SYSTEM registry hive is present in memory.
 
-\??\C:\Users\John\ntuser.dat
+We can also see:
+> \??\C:\Users\John\ntuser.dat
 
-is John's user registry hive, which could become useful when investigating what John did.
+This is John's user registry hive, which could become useful later when investigating his activity.
 
 
-For the shutdown question
+Extract the shutdown information
 
-Now that we know the SYSTEM hive exists, let's extract it.
+Now that we know where the SYSTEM hive is located, we can use windows.registry.printkey to inspect a specific registry key related to Windows shutdown information.
+
+Run:
 
 ```
 python3 ~/Downloads/volatility3/vol.py \
@@ -236,19 +239,29 @@ windows.registry.printkey \
 --key "ControlSet001\Control\Windows"
 ```
 
-"Take the SYSTEM registry hive we found in memory, then navigate through the registry to ControlSet001 → Control → Windows and show me the values stored there."
+In other words, we're telling Volatility:
+
+> Take the SYSTEM registry hive we found in memory, navigate to ControlSet001 → Control → Windows, and display the values stored there.
+
 
 <img width="1338" height="297" alt="image" src="https://github.com/user-attachments/assets/74656fa4-708f-4ba4-a74c-6675e1ecc29b" />
 
-This gives us the ShutdownTime
+The output contains a value called:
+
+> ShutdownTime
+
+This gives us the last recorded shutdown time
 
 Answer: 
 > 2020-12-27 22:50:12
 
+---
 
-Let's now proceed to answering the next question 
+### 2. What did John write?
 
-Since the clue says John had a command prompt open, our target is the cmd.exe process and its console history.
+Let's now move on to the second question.
+
+The clue tells us that John had a Command Prompt window open, so our target is the cmd.exe process and, if possible, the console history associated with it.
 
 Step 1 — Find cmd.exe
 
@@ -260,12 +273,16 @@ windows.pslist
 
 <img width="1057" height="799" alt="image" src="https://github.com/user-attachments/assets/78fb6833-db59-4a78-b2bd-d0192ca9cc2c" />
 
-Great. We found the exact cmd.exe process:
+Great! We found the cmd.exe process:
 
-PID   PPID   ImageFileName
-1920  1144   cmd.exe
+PID    PPID    ImageFileName
+1920   1144    cmd.exe
 
-Let's check the command line
+So we know that a Command Prompt process was present in the memory image.
+
+Step 2 — Check the command line
+
+Next, let's check the command line associated with the process.
 
 ```
 python3 ~/Downloads/volatility3/vol.py \
@@ -275,34 +292,45 @@ windows.cmdline
 
 <img width="853" height="853" alt="image" src="https://github.com/user-attachments/assets/6bc65250-35dc-4ced-a4c0-1e22051b3c8a" />
 
-Right — this output confirms what we already suspected, so we don't need to run windows.cmdline again.
+This confirms how the cmd.exe process was launched.
 
-That tells us how CMD was launched, not what John typed.
+However, there is an important distinction here:
 
+windows.cmdline shows the command line used to launch the process. It does not necessarily show the commands that John typed inside the Command Prompt.
 
+So we need to look for the console history instead.
 
-Let's try 
+Step 3 — Try windows.consoles
+
 ```
 python3 ~/Downloads/volatility3/vol.py \
 -f ~/Downloads/Snapshot19_1609159453792.vmem \
 windows.consoles
 ```
 
-If the console artifacts survived in the memory dump, this may expose the commands that were entered into cmd.exe.
+Ideally, this plugin can recover console information and commands entered into cmd.exe.
 
-Your memory image appears to be from Windows 7 / Windows Server 2008 R2-era Windows, and your installed Volatility 3.28.2 windows.consoles plugin doesn't support the specific conhost.exe version in this image.
+However, in this case, the plugin does not support the specific conhost.exe version found in this Windows 7-era memory image.
+
+So we need another approach.
 
 ---
 
-Let's now use the strings method, but we'll make it targeted.
+Step 4 — Search the memory dump for John's commands
 
-Create unicode strings 
+Since the console plugin isn't able to recover the command history, let's search the raw memory dump for strings.
+
+Because Windows commonly stores text as Unicode/UTF-16, we'll first extract Unicode strings from the memory image.
+
+Run:
 
 ```
 strings -el ~/Downloads/Snapshot19_1609159453792.vmem > ~/Downloads/john_unicode.txt
 ```
 
-Find every occurrence of John's prompt
+This creates a file containing the Unicode strings extracted from the memory dump.
+
+Now let's search for John's Command Prompt:
 
 ```
 grep -in 'C:\\Users\\John>' ~/Downloads/john_unicode.txt
@@ -311,8 +339,15 @@ grep -in 'C:\\Users\\John>' ~/Downloads/john_unicode.txt
 <img width="1855" height="223" alt="image" src="https://github.com/user-attachments/assets/1ea689c9-49c5-40cb-a136-cfce57d5b1e5" />
 
 
-Search specifically for commands after the prompt
+Great! We can see references to John's Command Prompt.
 
+But we still need to find what he actually typed.
+
+Step 5 — Search for the command John entered
+
+Since we're looking for something written from the Command Prompt, let's search for commands appearing after John's prompt.
+
+We can specifically look for commands involving echo, .txt, or output redirection (>):
 
 ```
 grep -in -E 'C:\\Users\\John>.*echo|echo.*\.txt|C:\\Users\\John>.*>' ~/Downloads/john_unicode.txt
@@ -320,5 +355,20 @@ grep -in -E 'C:\\Users\\John>.*echo|echo.*\.txt|C:\\Users\\John>.*>' ~/Downloads
 
 <img width="815" height="83" alt="image" src="https://github.com/user-attachments/assets/6373f13b-8e09-4e37-b14f-8548a8afd7d0" />
 
+And there it is!
+
+We recovered the text John wrote
+
 Answer:
 > You_found_me
+
+
+For this task, we used several different sources of evidence from the memory dump.
+
+First, we located the SYSTEM registry hive and used it to recover the machine's last shutdown time. Then, we used windows.pslist to identify the cmd.exe process.
+
+Although windows.cmdline showed how Command Prompt was launched, it didn't reveal the commands John typed. The windows.consoles plugin also couldn't recover the console history because of the Windows version in the memory image.
+
+Instead, we extracted Unicode strings from the memory dump and searched specifically for John's Command Prompt and likely command patterns. This allowed us to recover the text:
+
+You_found_me

@@ -1,4 +1,4 @@
-# Title: Memory Forensics
+<img width="662" height="551" alt="image" src="https://github.com/user-attachments/assets/964cb656-bc87-4468-b1ed-f27297ebc390" /># Title: Memory Forensics
 
 #### Category: 
 
@@ -372,3 +372,316 @@ Although windows.cmdline showed how Command Prompt was launched, it didn't revea
 Instead, we extracted Unicode strings from the memory dump and searched specifically for John's Command Prompt and likely command patterns. This allowed us to recover the text:
 
 You_found_me
+
+---
+
+## Task 4: TrueCrypt
+
+A common task of forensic investigators is looking for hidden partitions and encrypted files, as suspicion arose when TrueCrypt was found on the suspect's machine and an encrypted partition was found. The interrogation did not yield any success in getting the passphrase from the suspect, however, it may be present in the memory dump obtained from the suspect's computer.
+
+<img width="662" height="551" alt="image" src="https://github.com/user-attachments/assets/c28e5187-8f2a-4e59-b71e-151af5759f73" />
+
+What is the TrueCrypt passphrase?
+
+---
+
+Step 1 — Identify TrueCrypt
+
+
+The first thing we want to establish is whether TrueCrypt was actually running when the memory image was captured.
+
+Run
+```
+python3 ~/Downloads/volatility3/vol.py \
+-f ~/Downloads/Snapshot14_1609164553061.vmem \
+windows.pslist | grep -i truecrypt
+```
+
+<img width="1032" height="171" alt="image" src="https://github.com/user-attachments/assets/d5ddc653-1423-4780-be9a-e5d0a4fd807e" />
+
+The important result is:
+
+> 1904    TrueCrypt.exe
+
+This tells us:
+
+- Process: TrueCrypt.exe
+- PID: 1904
+
+At this point, we know TrueCrypt was running on the suspect's machine.
+
+
+Step 2 — Check for the TrueCrypt Volatility Plugin
+
+Volatility 3 contains a plugin specifically designed to recover cached TrueCrypt passwords.
+
+Check for it:
+
+```
+python3 ~/Downloads/volatility3/vol.py --help | grep -i truecrypt
+```
+
+The important output is:
+
+<img width="556" height="95" alt="image" src="https://github.com/user-attachments/assets/4992e033-4b89-4fb2-aa21-43136b6493a3" />
+
+This is significant because it confirms that our Volatility installation has a dedicated TrueCrypt passphrase recovery plugin.
+
+However, the plugin expects to scan the TrueCrypt kernel driver, not simply the TrueCrypt.exe process.
+
+So our next goal is to locate:
+
+> truecrypt.sys
+
+
+Step 3 — Locate the TrueCrypt Kernel Driver
+
+Use the Windows modules plugin:
+
+```
+python3 ~/Downloads/volatility3/vol.py \
+-f ~/Downloads/Snapshot14_1609164553061.vmem \
+windows.modules | grep -i truecrypt
+```
+
+<img width="908" height="142" alt="image" src="https://github.com/user-attachments/assets/2bc6e36e-a2e8-4cb2-bac7-967d247dc572" />
+
+The important information is:
+
+```
+Module: truecrypt.sys
+Base:   0xf880050f0000
+Size:   0x41000
+```
+
+This is the kernel driver responsible for TrueCrypt's encryption functionality.
+
+Step 4 — Confirm the Driver with Modscan
+
+As an additional verification, we can locate the driver using windows.modscan:
+
+```
+python3 ~/Downloads/volatility3/vol.py \
+-f ~/Downloads/Snapshot14_1609164553061.vmem \
+windows.modscan | grep -i truecrypt
+```
+
+The result again identifies:
+
+truecrypt.sys
+
+at:
+
+> 0xf880050f0000
+
+This confirms that the driver is present in the memory image.
+
+Step 5 — Dump truecrypt.sys from Memory
+
+Now that we know the driver's base address, we can use Volatility 3's windows.pedump plugin.
+
+The important options are:
+
+--base
+--kernel-module
+
+Since truecrypt.sys is a kernel module, specify its base address and tell Volatility that it is a kernel module:
+
+```
+python3 ~/Downloads/volatility3/vol.py \
+-f ~/Downloads/Snapshot14_1609164553061.vmem \
+windows.pedump \
+--base 0xf880050f0000 \
+--kernel-module
+```
+
+<img width="406" height="238" alt="image" src="https://github.com/user-attachments/assets/909ee54c-4601-4cf0-b833-79b75eb4add9" />
+
+Volatility produces:
+
+> PE.0x0.4.0xf880050f0000.dmp
+
+We now have a dumped copy of the TrueCrypt kernel driver.
+
+
+Step 6 — Inspect the PE Sections
+
+The cached passphrase is not necessarily going to appear as an obvious string.
+
+Instead, we need to examine the driver's PE sections.
+
+Use:
+
+```
+objdump -h PE.0x0.4.0xf880050f0000.dmp
+```
+
+<img width="888" height="466" alt="image" src="https://github.com/user-attachments/assets/4961b647-ac56-44af-b8e1-8ba74822283f" />
+
+The important section is:
+
+```
+Idx Name      Size      VMA               File off
+2   .data     0000c000  0xf88005121000    00031000
+```
+
+The .data section is particularly important because this is where the TrueCrypt password structures can be found.
+
+Step 7 — Extract the .data Section
+
+Rather than scanning the entire driver, extract only the .data section.
+
+Use dd:
+
+```
+dd if=PE.0x0.4.0xf880050f0000.dmp \ 
+of=truecrypt_data.bin \ 
+bs=1 \ 
+skip=$((0x31000)) \ 
+count=$((0xc000)) \ 
+status=none
+```
+
+This creates:
+
+> truecrypt_data.bin
+
+which contains only the TrueCrypt driver's .data section.
+
+This makes our search much more targeted.
+
+Step 8 — Understand the TrueCrypt Password Structure
+
+At this point, we need to understand what we're searching for.
+
+The Volatility 3 TrueCrypt plugin contains the logic for locating cached passwords.
+
+The relevant structure is essentially:
+
+```
+[4-byte password length]
+[password bytes]
+[00]
+[00 00 00]
+```
+
+For example, if the password were 11 characters:
+
+> 0b 00 00 00
+
+would represent the length 11, followed by:
+
+11 password characters
+
+and then:
+
+> 00 00 00 00
+
+The plugin also checks several conditions:
+
+Password length
+
+Password length
+
+TrueCrypt supports passwords up to 64 characters.
+
+Therefore:
+
+> 1 <= length <= 64
+
+Printable characters
+
+The password characters must fall within:
+
+> 0x20 <= character < 0x7f
+
+This corresponds to printable ASCII characters.
+
+Null termination and padding
+
+After the password there must be:
+
+> 00
+
+followed by three additional zero bytes:
+
+> 00 00 00
+
+This structure gives us a reliable way to search the .data section instead of relying on generic strings output.
+
+
+---
+
+
+Step 9 — Search the .data Section
+
+We can reproduce the relevant logic with a small Python script.
+
+Run:
+
+```
+python3 - <<'PY'
+import struct
+
+filename = "truecrypt_data.bin"
+
+with open(filename, "rb") as f:
+    data = f.read()
+
+for i in range(0, len(data) - 8):
+    length = struct.unpack_from("<I", data, i)[0]
+
+    if not 1 <= length <= 64:
+        continue
+
+    start = i + 4
+    end = start + length
+
+    if end + 4 > len(data):
+        continue
+
+    password = data[start:end]
+
+    # TrueCrypt password characters:
+    # 0x20 <= c < 0x7f
+    if not all(0x20 <= c < 0x7f for c in password):
+        continue
+
+    # Null terminator
+    if data[end] != 0:
+        continue
+
+    # Three zero-byte padding bytes
+    if data[end+1:end+4] != b"\x00\x00\x00":
+        continue
+
+    print(
+        f"Offset: 0x{i:x} "
+        f"Length: {length} "
+        f"Password: {password.decode('ascii')}"
+    )
+PY
+```
+
+
+Step 10 — Recover the Passphrase
+
+The search produces:
+
+> Offset: 0xaee0 Length: 11 Password: forgetmenot
+
+This gives us:
+
+```
+Offset: 0xaee0
+Length: 11
+Password: forgetmenot
+```
+
+The password is therefore:
+
+Answer: 
+> forgetmenot
+
+
+We analyzed the Windows memory dump and first confirmed that TrueCrypt.exe was running on the system. We then identified the associated truecrypt.sys kernel driver and dumped it from memory. By examining its .data section and searching for the specific structure used by TrueCrypt to cache passwords, we were able to recover the stored passphrase. The investigation revealed that the TrueCrypt passphrase was forgetmenot.

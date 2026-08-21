@@ -208,4 +208,17 @@ The date did the compromise take place is the start date of the file nc.ps1 in t
 Answer:
 > 03/02/2019
 
+---
+
+#### During the compromise, at what time did Windows first assign special privileges to a new logon?
+
+Answer format: MM/DD/YYYY HH:MM:SS AM/PM
+
+
+Id=4672
+
+
+
+
+
 

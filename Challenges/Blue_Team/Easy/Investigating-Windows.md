@@ -1,4 +1,4 @@
-<img width="1053" height="179" alt="image" src="https://github.com/user-attachments/assets/ee75b139-eb8e-4e1b-95cf-29fc842a84e2" /><img width="500" height="435" alt="image" src="https://github.com/user-attachments/assets/ac111c86-d7d6-4db8-b586-fafc2831ab03" /># Title: # Title: Investigating Windows 
+# Title: # Title: Investigating Windows 
 
 #### Category: 
 
@@ -200,7 +200,12 @@ At what date did the compromise take place?
 
 Answer format: MM/DD/YYYY
 
+The date did the compromise take place is the start date of the file nc.ps1 in the malicious scheduled task 
+
+<img width="786" height="513" alt="image" src="https://github.com/user-attachments/assets/42f7cb52-0906-4e13-82b3-66ba3736490e" />
 
 
+Answer:
+> 03/02/2019
 
 

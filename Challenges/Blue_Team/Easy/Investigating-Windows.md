@@ -214,11 +214,197 @@ Answer:
 
 Answer format: MM/DD/YYYY HH:MM:SS AM/PM
 
+During the compromise, at what time did Windows first assign special privileges to a new logon?
 
-Id=4672
+To find this, I opened Event Viewer by pressing Win + R and running:
+
+> eventvwr
+
+I then navigated to:
+
+Windows Logs → Security
+
+The question mentions that Windows assigned special privileges to a new logon, which corresponds to Event ID 4672.
+
+There were a lot of events with Event ID 4672, around 325 entries, so checking every event manually would take a while. I used the hint provided by the challenge, which stated that the correct time ends with :49 seconds and occurs in the PM.
+
+I went through the Event ID 4672 entries and looked at their timestamps until I found the event matching the hint. After opening the event, I confirmed that it was the "Special privileges assigned to new logon" event.
+
+The timestamp shown for this event gives the answer.
+
+<img width="1552" height="281" alt="image" src="https://github.com/user-attachments/assets/ee43af1b-7d4b-4213-82ba-76caf8483362" />
 
 
+---
+
+#### What tool was used to get Windows passwords?
+
+To find the tool used to obtain Windows passwords, I first checked the suspicious C:\TMP directory that we had already identified during the investigation.
+
+I ran:
+
+dir C:\TMP
+
+Looking through the files, I noticed two files that stood out:
+
+```
+mim.exe
+mim-out.txt
+```
+
+<img width="612" height="633" alt="image" src="https://github.com/user-attachments/assets/ea7b8927-be62-4186-afee-54d5c01960ac" />
 
 
+The file mim.exe is suspicious because its name is commonly used as a shortened name for Mimikatz. The accompanying mim-out.txt also suggests that the tool's output was saved to a text file.
+
+This gives us a strong indication that the attacker used Mimikatz to obtain Windows credentials.
+
+What is Mimikatz?
+
+Mimikatz is a Windows post-exploitation and credential-dumping tool. Attackers can use it to extract credentials and authentication information from a compromised Windows system, including passwords, password hashes, and Kerberos-related credentials.
+
+It is commonly used during penetration testing and security research, but it is also frequently abused by attackers after gaining access to a Windows machine.
+
+In this investigation, the presence of mim.exe and mim-out.txt in C:\TMP provides evidence that Mimikatz was used during the compromise.
+
+Answer:
+> Mimikatz
+
+---
+
+#### What was the attackers external control and command servers IP?
+
+Since this is a Windows machine, I first checked common network configuration locations. One important location is:
+
+C:\Windows\System32\drivers\etc\
+
+This directory contains the hosts file, which Windows uses to map domain names to IP addresses. Attackers can modify this file to redirect traffic or block security services.
+
+I opened the hosts file and looked for unusual entries. I found:
+
+```
+127.0.0.1    www.virustotal.com
+127.0.0.1    dci.sophosupd.com
+
+76.32.97.132    google.com
+76.32.97.132    www.google.com
+```
+
+The last two entries stood out because they redirect google.com and www.google.com to the external IP 76.32.97.132.
+
+This makes 76.32.97.132 the suspected attacker C2 IP.
+
+<img width="835" height="681" alt="image" src="https://github.com/user-attachments/assets/b8d08956-17be-415f-9279-5e3dbc5c136d" />
+
+Answer: 
+> 76.32.97.132
+
+
+---
+
+#### What was the extension name of the shell uploaded via the servers website?
+
+To answer this question, I looked at the website's files. Since the server is using IIS, a common web directory to check is:
+
+C:\inetpub\wwwroot\
+
+I listed the files with:
+
+dir C:\inetpub\wwwroot\
+
+The output showed:
+
+```
+74,853    b.jsp
+12,572    shell.gif
+657       tests.jsp
+```
+
+The important part is the file extensions.
+
+I found two files ending in .jsp:
+
+```
+b.jsp
+tests.jsp
+```
+
+<img width="543" height="313" alt="image" src="https://github.com/user-attachments/assets/58932b06-5f16-4683-b286-0b724c1e8e32" />
+
+
+The question asks for the extension name of the shell uploaded via the website. Since the server contains JSP files and the suspicious file is b.jsp, the shell is using the .jsp extension.
+
+JSP stands for JavaServer Pages and is a server-side technology that can execute Java code through a Java web server. This makes .jsp a possible extension for a web shell.
+
+Answer
+> .jsp
+
+
+---
+
+#### What was the last port the attacker opened?
+
+To investigate the Windows firewall rules, I used the following command:
+
+netsh advfirewall firewall show rule name=all
+
+This command displays all firewall rules, so there were a lot of entries to go through.
+
+I manually checked the rules and looked for the indicators that would make a rule relevant to the question.
+
+I found this rule:
+
+```
+Rule Name:   Allow outside connections for development
+Enabled:     Yes
+Direction:   In
+Profiles:    Public
+Protocol:    TCP
+LocalPort:   1337
+Action:      Allow
+```
+
+The important indicators are:
+
+Direction: In → allows incoming connections.
+Protocol: TCP → specifies the network protocol.
+LocalPort: 1337 → identifies the port being opened.
+Action: Allow → the firewall permits connections to that port.
+Enabled: Yes → the rule is active.
+
+Because this rule allows incoming TCP connections on port 1337, this is the port I was looking for.
+
+<img width="802" height="337" alt="image" src="https://github.com/user-attachments/assets/69d603e1-5a55-4f83-8ddf-6126b776daa3" />
+
+Answer:
+> 1337
+
+---
+
+#### Check for DNS poisoning, what site was targeted?
+
+DNS poisoning is when an attacker manipulates DNS information so a domain name points to the wrong IP address.
+
+To check for DNS poisoning, I went back to the Windows hosts file:
+
+> C:\Windows\System32\drivers\etc\hosts
+
+The hosts file is important because Windows can use it to manually map a domain name to an IP address, bypassing normal DNS resolution.
+
+I looked for suspicious domain-to-IP mappings and found:
+
+```
+76.32.97.132    google.com
+76.32.97.132    www.google.com
+```
+
+This is suspicious because both Google domains are being redirected to the same external IP address:
+
+> google.com → 76.32.97.132
+
+This indicates that the attacker modified the hostname resolution so that requests intended for Google could instead be sent to the suspicious IP.
+
+Answer:
+> google.com 
 
 
